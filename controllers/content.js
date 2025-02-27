@@ -546,6 +546,7 @@ function nextbtnshow() {
 
         await chrome.storage.local.set({ currentIndex: index + 1 });
 
+        console.log("Navigating to next URL:", nextUrl);
         // Fetch the next page before redirecting
         const response = await fetch(nextUrl);
         if (!response.ok) {
@@ -560,6 +561,7 @@ function nextbtnshow() {
         const contactLinks = Array.from(doc.querySelectorAll("a")).filter(
           (link) => link.textContent.toLowerCase().includes("contact")
         );
+        console.log("Contact Links:", contactLinks);
 
         if (contactLinks.length > 0) {
           const newTab = window.open(contactLinks[0].href, "_blank");
@@ -571,7 +573,7 @@ function nextbtnshow() {
         }
 
         // Redirect to the next URL
-        window.location.href = nextUrl;
+        // window.location.href = nextUrl;
       } else {
         alert("No more URLs!");
       }
