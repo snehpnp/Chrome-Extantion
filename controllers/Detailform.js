@@ -7,8 +7,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const urls = [
         "http://www.gisindore.in/",
-        "https://www.takshsheela.com/"
+        "https://www.takshsheela.com/",
+        // "http://www.diaspark.com/",
+        // "https://www.thoughtwin.com/",
+        // "https://nrewind.com/",
+        // "https://www.betaitsolution.com/",
+        // "https://codezilla.io/",
+        // "	https://www.infobeans.com/"
     ];
+
+    chrome.runtime.onInstalled.addListener(() => {
+        chrome.storage.local.set({
+            urls: urls,
+            currentIndex: 0
+        });
+    });
+    
 
     function showForm() {
         form.style.display = "block";
@@ -20,17 +34,16 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.style.display = "none";
     }
 
-    function storeFormData(name, email) {
-        localStorage.setItem("formData", JSON.stringify({ name, email }));
 
+    function storeFormData(name, email, phone, description) {
+        localStorage.setItem("formData", JSON.stringify({ name, email, phone, description }));
         chrome.storage.local.set({ 
-            user: { name, email }
+            user: { name, email , phone, description }
         }, function () {
             // console.log("User data saved!");
         });
-        
-        
     }
+
 
     function getStoredFormData() {
         const storedData = localStorage.getItem("formData");
@@ -52,13 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             const name = document.getElementById("name").value.trim();
             const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone")?.value.trim();
+            const description = document.getElementById("description")?.value.trim();
 
-            if (!name || !email) {
+            if (!name || !email || !phone || !description) {
                 alert("Please fill in all fields.");
                 return;
             }
 
-            storeFormData(name, email);
+            storeFormData(name, email, phone, description);
+
+         
             alert("Form submitted successfully!");
             hideForm();
             submitForm.reset();

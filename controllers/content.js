@@ -45,7 +45,7 @@ $box[_$_50b6[5]]((_0x1ED43, _0x1ED1D) => {
   }
 });
 $(document)[_$_50b6[13]](() => {
-  console[_$_50b6[1]](_$_50b6[6]);
+  // console[_$_50b6[1]](_$_50b6[6]);
   $box[_$_50b6[12]]((_0x1ED69) => {
     if (_0x1ED69[_$_50b6[7]]) {
       if (_0x1ED69[_$_50b6[8]]) {
@@ -457,11 +457,12 @@ function autoFillForm() {
 
     let name = result.user.name;
     let email = result.user.email;
+    let phone = result.user.phone;
+    let description = result.user.description;
 
     // Find all forms on the page
     let forms = document.querySelectorAll("form");
     if (forms.length === 0) {
-    //   console.log("No Forms Found!");
       return;
     }
 
@@ -472,6 +473,15 @@ function autoFillForm() {
       let emailInput = form.querySelector(
         'input[name="email"], input[placeholder*="email"], input[type="email"], input[id*="email"]'
       );
+
+      let phoneInput = form.querySelector(
+        'input[name="phone"], input[placeholder*="phone"], input[type="tel"], input[id*="phone"]'
+      );
+
+      let descriptionInput = form.querySelector(
+        'textarea[name="description"], textarea[placeholder*="message"], textarea[id*="message"]'
+      );
+
 
       if (nameInput) {
         nameInput.value = name;
@@ -484,7 +494,19 @@ function autoFillForm() {
         emailInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
 
-      console.log("Form Auto-Filled Successfully!");
+      if (phoneInput) {
+        phoneInput.value = phone;
+        phoneInput.dispatchEvent(new Event("input", { bubbles: true }));
+        phoneInput.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      if (descriptionInput) {
+        descriptionInput.value = description;
+        descriptionInput.dispatchEvent(new Event("input", { bubbles: true }));
+        descriptionInput.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+
     });
   });
 }
@@ -492,3 +514,60 @@ function autoFillForm() {
 // ADD DANIMIC CODE DO ADDOWNBUTTON ON ALL PAGE TO HIT NEXTCHANGE URL
 
 window.onload = autoFillForm;
+
+
+function nextbtnshow() {
+  console.log("Next Button Script Loaded!");
+
+  // Check if button already exists
+  // if (document.getElementById("next-btn")) return;
+  console.log("Next Button Script Loaded! 1");
+
+  // Create "Next" Button
+  const nextBtn = document.createElement("button");
+
+  console.log("Next Button Script Loaded! 2");
+
+
+  nextBtn.id = "next-btn";
+  nextBtn.innerText = "Next";
+  nextBtn.width = "1000px";
+  nextBtn.height = "500px";
+  nextBtn.style.position = "fixed";
+  nextBtn.style.bottom = "20px";
+  nextBtn.style.right = "20px";
+  nextBtn.style.padding = "10px 20px";
+  nextBtn.style.background = "#28a745";
+  nextBtn.style.color = "white";
+  nextBtn.style.border = "none";
+  nextBtn.style.cursor = "pointer";
+
+  console.log("Next Button Script Loaded! 3");
+
+  document.body.appendChild(nextBtn);
+
+  console.log("Next Button Added!");
+
+  // Button Click Function
+  nextBtn.addEventListener("click", function () {
+      chrome.storage.local.get(["urls", "currentIndex"], function (result) {
+        console.log("URLs: ", result.urls);
+        
+          let urls = result.urls || [];
+          let index = result.currentIndex || 0;
+
+          if (index < urls.length - 1) {
+              let nextUrl = urls[index + 1];
+              chrome.storage.local.set({ currentIndex: index + 1 }, function () {
+                  window.location.href = nextUrl;
+              });
+          } else {
+              alert("No more URLs!");
+          }
+      });
+  });
+}
+
+
+window.onload = nextbtnshow;
+
