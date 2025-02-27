@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const urls = [
         "http://www.gisindore.in/",
         "https://www.takshsheela.com/",
+        "http://www.gisindore.in/",
+        "https://www.takshsheela.com/",
+        "http://www.gisindore.in/",
+        "https://www.takshsheela.com/",
+        "http://www.gisindore.in/",
+        "https://www.takshsheela.com/",
+        
         // "http://www.diaspark.com/",
         // "https://www.thoughtwin.com/",
         // "https://nrewind.com/",
