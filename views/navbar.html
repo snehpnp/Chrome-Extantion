@@ -1,0 +1,40 @@
+<div class="navbar-container" style="align-items: center;">
+  <div class="left" style="width: 25%;">
+    <div class="mr-4" style="display:flex;">
+      <div class="company-logo">
+        <img src="https://www.morphymail.com/wp-content/uploads/2024/12/WhatsApp_Image.png">
+      </div>
+      <div class="software-manifest">
+        <img ng-src="{{local.remote_manifest.software_icon}}" alt="{{local.remote_manifest.software_name}}"
+          class="ui image mini spaced mini m-0 software-icon" />
+        <b class="label software-name">{{local.remote_manifest.software_name}}</b>
+        <span class="text-muted text-small" style="font-size: 12px;">{{version}}</span>
+      </div>
+      
+    </div>
+    <div >
+      <div ng-if="local.ad.display" class="ad-container ml-4">
+        <img ng-src="{{local.ad.ad_image}}" ng-click="openAdLink()">
+      </div>
+    </div>
+  </div>
+<div class="head-center">
+<a href="https://www.morphymail.com/cheap-smtp-server" target="_blank"><img src="https://www.morphymail.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-09-at-13.35.31.jpeg"></a>
+</div>
+  <span class="right" style="flex-direction: row !important;">
+
+    <button ng-if="!local._auth.hasValidKey" ng-disabled="local.status" class="ui button blue basic" style="background-color: #ffffff !important"
+      ng-click="local.showLoginModal=!local.showLoginModal; saveLocal()"> <i class="ui icon unlock"></i> Activate
+      License</button>
+    <!--button class="ui button basic mt-3 buy-button"
+      style="background-color: #FF9E00 !important; color: white !important;" ng-click="https://www.emailextractor.co/order">Buy Full
+      Version
+    </button-->
+    <a href="https://www.emailextractor.co/order" target="_blank" style="padding: 8px 20px;
+    border-radius: 5px;background-color: #FF9E00 !important; color: white !important;">Buy Now</a>
+    <button ng-if="local._auth.hasValidKey" ng-disabled="local.status" class="ui button basic" ng-click="logout()"> <i
+        class="ui icon lock"></i> Logout</button>
+
+  </span>
+
+</div>

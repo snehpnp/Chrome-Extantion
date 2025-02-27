@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Morphy Leads Finder</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      data-load-minified
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/zooAll.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Data Table -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn3.devexpress.com/jslib/20.1.3/css/dx.common.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn3.devexpress.com/jslib/20.1.3/css/dx.light.css"
+    />
+
+    <!-- Material Design Lite -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      data-load-minified
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+    />
+    <link
+      data-load-minified
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/popup.css"
+    />
+
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/jquery.min.js"
+    ></script>
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/angular.min.js"
+    ></script>
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/dx.all.js"
+    ></script>
+
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/semantic.min.js"
+    ></script>
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/lockr.min.js"
+    ></script>
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/material.min.js"
+    ></script>
+    <script
+      data-load-concat
+      type="text/javascript"
+      src="/assets/vendors/lodash.min.js"
+    ></script>
+
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/libs/ChromeBox.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/libs/FoxCommon.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/libs/Snackbar.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/libs/MaterialDesignLite.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/libs/Auth.js"
+    ></script>
+
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/controllers/localModel.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/controllers/Tabs.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/controllers/welcomeController.js"
+    ></script>
+    <script
+      data-load-obfuscate
+      defer
+      type="text/javascript"
+      src="/config/app.js"
+    ></script>
+
+    <script
+      data-load-minify
+      defer
+      type="text/javascript"
+      src="/controllers/index.js"
+    ></script>
+    <script src="/controllers/Detailform.js"></script>
+
+    <link
+      data-load-minified
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/custom-styles.css"
+    />
+
+    <style>
+      .dx-scrollable-scroll-content {
+        background-color: #bfbfbf !important;
+      }
+
+      .dx-state-invisible {
+        display: block !important;
+      }
+
+      .dx-scrollable-scroll {
+        height: 15px !important;
+      }
+
+      .dx-scrollable-scrollbar {
+        height: 15px !important;
+      }
+      #myForm {
+        z-index: 9999999999999;
+        width: 50% !important;
+        height: 50% !important;
+      }
+
+      #extensionNextButton {
+        position: fixed !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        padding: 10px 20px !important;
+        font-size: 16px !important;
+        background-color: #4caf50 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 5px !important;
+        cursor: pointer !important;
+        z-index: 999999 !important; /* Ensure it's on top */
+      }
+    </style>
+  </head>
+
+  <body ng-app="popupApp" claass="ng-hide hide" ng-cloak>
+    <div
+      ng-controller="indexController"
+      ng-style="{'background-color': local.software_pcolor}"
+    >
+      <div class="old-version-modal" ng-if="local.showDownloadExtensionModal">
+        <div
+          class="ui modal visible active raised border-0 custom-modal"
+          style="
+            margin: auto;
+            padding: 2rem;
+            width: 500px;
+            height: 200px;
+            background-color: #90d5f6;
+          "
+        >
+          <div class="close-download-modal" ng-click="closeApp()">
+            <i class="ui icon close white close-icon"></i>
+          </div>
+          <h3 class="alert">New Version Available</h3>
+          <button class="download-button" ng-click="openDownloadUrl()">
+            <h4>Download Now</h4>
+          </button>
+        </div>
+      </div>
+
+      <!-- Don't move login from here -->
+      <!-- <div class="bg-white w-100 h-100" ng-if="local.activeTab=='login'" style="position: fixed;height: 100vh!important;width: 100%;z-index: 8;" ng-include="'login.html'"></div> -->
+
+      <div
+        class="ui pt-3 pl-3 pb-0 mb-0 fluid rounded-0 border-0 borderless"
+        ng-include="'navbar.html'"
+        ng-style="{'background-color': local.software_pcolor}"
+      ></div>
+
+      <!-- <div class="p-3">
+            <ng-include ng-if="local.activeTab=='home'" src="'home.html'"></ng-include>
+            <ng-include ng-if="local.activeTab=='about'" src="'about.html'"></ng-include>
+            <ng-include ng-if="local.activeTab=='settings'" src="'settings.html'"></ng-include>
+            <ng-include ng-if="local.activeTab=='notifications'" src="'notifications.html'"></ng-include>
+        </div>  -->
+
+      <div
+        class="row p-3 w-100"
+        ng-style="{'background-color': local.software_pcolor}"
+      >
+        <div class="col-2">
+          <div class="ui segment green raised w-100">
+            <p>
+              <i
+                ng-class="local.status ? 'ui icon spinner green loading': 'ui icon green circle' "
+              ></i
+              ><b>"{{local.activeKeyword}} in {{local.activeLocation}}"</b>
+            </p>
+            <div class="field">
+              <label for=""
+                >Progress
+                ({{percentComplete().completed+"/"+percentComplete().total}})</label
+              >
+              <div class="progress rounded-0">
+                <div
+                  class="progress-bar bg-green"
+                  ng-style="{width:percentComplete().percent+'%', transition: 'width 4s ease-in-out'}"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="ui segment raised rounded-0">
+            <form class="ui large form">
+              <div class="field">
+                <label>Keywords ({{local.keywordList.length}})</label>
+                <textarea
+                  ng-model="local.keywordTextarea"
+                  ng-change="saveAsList()"
+                  cols="30"
+                  rows="8"
+                  placeholder="Keywords"
+                ></textarea>
+              </div>
+              <div class="field">
+                <label>Locations ({{local.locationList.length}})</label>
+                <textarea
+                  ng-model="local.locationTextarea"
+                  ng-change="saveAsList()"
+                  cols="30"
+                  rows="8"
+                  placeholder="Locations"
+                ></textarea>
+              </div>
+              <div class="field">
+                <label>Email regex list ({{local.regexList.length}})</label>
+                <textarea
+                  cols="30"
+                  rows="5"
+                  ng-model="local.regexListTextarea"
+                  ng-change="saveAsList()"
+                  placeholder="Email regex to blacklist"
+                >
+                          {{local.regexListTextarea}}</textarea
+                >
+              </div>
+              <div class="field">
+                <label
+                  >Max seconds allowed for extracting emails per website</label
+                >
+                <input
+                  ng-model="local.maxTimeForMail"
+                  placeholder="Time (in seconds)"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div
+          id="overlay"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+          "
+        ></div>
+
+        <!-- Hidden form -->
+        <div
+          id="myForm"
+          style="
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+          "
+        >
+          <h2>Enter Your Details</h2>
+          <form id="submitForm">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              style="width: 100%; padding: 8px; margin-top: 5px"
+            /><br /><br />
+
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              style="width: 100%; padding: 8px; margin-top: 5px"
+            /><br /><br />
+
+            <button
+              type="submit"
+              style="padding: 10px; margin: 5px; cursor: pointer"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              id="closeFormBtn"
+              style="padding: 10px; margin: 5px; cursor: pointer"
+            >
+              Close
+            </button>
+          </form>
+          <button id="nextButton">Next</button>
+        </div>
+
+        <div class="col-10">
+          <div
+            class="ui segment my-segment p-3"
+            ng-attr-style="{{ngAttrStyleColor(local.software_scolor)}}"
+          >
+            <!-- <button id="openFormBtn">Submit</button> -->
+
+            <button
+              class="ui button rounded-0 d-inline bg-green text-white"
+              id="openFormBtn"
+            >
+              Submit
+            </button>
+
+            <button
+              ng-class="local.status ?'ui button rounded-0 d-inline bg-red text-white' :'ui button rounded-0  d-inline bg-green text-white' "
+              ng-disabled="!local.taskList.length "
+              ng-click="sendMessage(local.status ? 'stop' : 'start'); local.status = !local.status; saveLocal();"
+            >
+              {{local.status ? 'Stop' : 'Start'}} Extracting
+            </button>
+
+            <!--                    local.isStop =false;-->
+            <button
+              class="ui button rounded-0 d-inline basic text-white"
+              ng-disabled="local.status || local.isScrapingEmail || !local.collect.length"
+              ng-click="download()"
+              ng-attr-style="{{ngAttrStyleColor('#ffffff !important')}}"
+            >
+              Download
+            </button>
+            <form name="scrapeEmail">
+              <span
+                class="ui button d-inline rounded-0 basic text-white checkbox-container"
+                ng-attr-style="{{ngAttrStyleColor('#ffffff !important')}}"
+                ng-class="local.status ? 'custom-disabled' : ''"
+              >
+                <label class="mb-0">Extract Email</label>
+                <input
+                  class="ui checkbox ml-2"
+                  type="checkbox"
+                  value="{{local.extractEmail}}"
+                  ng-disabled="local.status"
+                  ng-change="saveLocal()"
+                  ng-model="local.extractEmail"
+                />
+              </span>
+            </form>
+
+            <!-- <button
+                        ng-class="local.isScrapingLatLong ? 'ui button rounded-0  d-inline basic red text-white' : 'ui button rounded-0  d-inline basic text-white'"
+                        ng-disabled="local.status || !local.collect.length"
+                        ng-click="scrapeLatLong();local.isScrapingLatLong=true;"
+                        ng-attr-style="{{ngAttrStyleColor('#ffffff !important')}}">
+                        <i class="ui icon spinner loading" ng-if="local.isScrapingLatLong"></i>
+                        {{local.isScrapingLatLong ? "Stop Scraping Lat Long" : "Scrape Lat Long"}}
+                    </button> -->
+            <form name="scrapeLatLong">
+              <span
+                class="ui button d-inline rounded-0 basic text-white checkbox-container"
+                ng-attr-style="{{ngAttrStyleColor('#ffffff !important')}}"
+                ng-class="local.status ? 'custom-disabled' : ''"
+              >
+                <label class="mb-0">Extract Lat & Long</label>
+                <input
+                  class="ui checkbox ml-2"
+                  type="checkbox"
+                  value="{{local.exportLatLong}}"
+                  ng-disabled="local.status"
+                  ng-click="saveLocal(); refreshTable();"
+                  ng-model="local.exportLatLong"
+                />
+              </span>
+            </form>
+
+            <button
+              class="ui button rounded-0 d-inline basic text-white"
+              ng-disabled="local.status"
+              ng-click="clearData(); saveLocal(); refreshTable();"
+              ng-attr-style="{{ngAttrStyleColor('#ffffff !important')}}"
+            >
+              Clear Data
+            </button>
+
+            <!-- Stats -->
+            <div class="ui statistics mini d-inline p-0 m-0">
+              <div class="mini statistic m-0 px-3" style="position: relative">
+                <div class="value">{{local.collect.length}}</div>
+                <div class="label" style="font-size: 12px">RESULTS FOUND</div>
+                <i
+                  ng-class="local.status ? 'ui icon spinner green loading': '' "
+                  style="font-size: 3em; position: absolute; right: -50px"
+                ></i>
+              </div>
+
+              <!-- <div class="mini statistic m-0 px-3">
+                            <div class="value">{{countOf('website')}}</div>
+                            <div class="label" style="font-size: 12px;">Websites</div>
+                        </div> -->
+            </div>
+            <!-- Stats -->
+          </div>
+
+          <!-- Results -->
+          <!-- <div class="" style="overflow-x: scroll;">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp w-100">
+                <thead>
+                    <tr class="font-weight-bold">
+                        <th class="text-left text-truncate" width="40px">Id</th>
+                        <th class="text-left text-truncate" ng-repeat="(key,each) in getKeys()">{{each}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,each) in local.collect track by $index | limitTo:200">
+                        <td class="text-left text-truncate">{{key+1}}</td>
+                        <td class="text-left text-truncate" ng-repeat="eachKey in getKeys()">{{each[eachKey]}}</td>
+                    </tbody>
+                </table>
+            </div> -->
+          <!-- Results -->
+
+          <!-- Data Table Results -->
+          <!-- <div class="dx-viewport">
+                <div id="orders" dx-data-grid="dataGridOptions" style="width: 100%"></div>
+            </div> -->
+          <div id="gridContainer"></div>
+          <!-- Data Table Results -->
+        </div>
+      </div>
+
+      <!-- Download Modal -->
+      <div
+        class="{{ local.showDownloadModal ? 'ui modal visible active raised border-0 custom-modal' : 'ui modal' }}"
+        style="
+          margin: auto;
+          padding: 3rem;
+          width: 500px;
+          height: 200px;
+          background-color: #90d5f6;
+        "
+      >
+        <h3>
+          <!-- temporary fix for download modal -->
+          Exporting file, please wait...
+        </h3>
+        <h2>
+          <i class="ui icon spinner loading"></i>
+        </h2>
+      </div>
+
+      <!-- Login Modal -->
+      <div
+        class="{{ local.showLoginModal ? 'ui modal visible active raised border-0' : 'ui modal' }}"
+        style="margin: auto; height: 550px"
+      >
+        <div class="header w-100 font-weight-normal">
+          <i
+            class="close icon float-right mt-2 link"
+            ng-click="local.showLoginModal=false; saveLocal()"
+          ></i>
+          Your are currently using a Demo Version with a limit of 50 records and
+          you can't export records to file.
+        </div>
+
+        <div class="content">
+          <p class="text-center mt-5"><i class="ui icon gift huge blue"></i></p>
+          <h5 class="display-5 text-center">
+            Enter License key to unlock all features
+          </h5>
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+              <form class="ui form mx-4" name="testone">
+                <div class="field">
+                  <!-- <label>Enter License Key</label> -->
+                  <input
+                    type="text"
+                    ng-model="licenseKey"
+                    placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+                    pattern="^\w{5}-\w{5}-\w{5}-\w{5}-\w{5}$"
+                    required
+                    ng-disabled="isCheckingLicense"
+                  />
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                      <button
+                        class="ui button blue rounded-0 text-center"
+                        ng-disabled="!testone.$valid"
+                        ng-click="login()"
+                      >
+                        <i
+                          ng-if="isCheckingLicense"
+                          class="ui icon spinner loading"
+                        ></i
+                        >Submit
+                      </button>
+                    </div>
+                    <div class="col-4"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-3"></div>
+          </div>
+          <h5 ng-if="invalidKey" class="invalid-key">
+            You have entered invalid activation code.<br />
+            If you believe that the code you have entered is valid, then kindly
+            <a
+              href="{{ local.invalid_key_link === null ? '#' : local.invalid_key_link}}"
+              target="_blank"
+              >Click Here</a
+            >
+            to fix the issue.
+          </h5>
+          <h5 class="display-5 text-center">
+            Kindly buy the full version of the software
+          </h5>
+          <div class="buy-section">
+            <h5 ng-if="local.phone && local.phone !== '0'" class="call-us">
+              Call us on {{local.phone}}
+            </h5>
+            <div ng-if="local.payment_link">
+              <button
+                class="ui button basic buy-button"
+                style="
+                  background-color: #ff9e00 !important;
+                  color: white !important;
+                "
+                ng-click="openBuyUrl()"
+              >
+                BUY NOW
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Login Modal -->
+
+      <!-- Snack Bar -->
+      <div
+        ng-class="(snackbar.isShown) ? 'mdl-js-snackbar mdl-snackbar mdl-snackbar--active' : 'mdl-js-snackbar mdl-snackbar'"
+        style="z-index: 10"
+      >
+        <div class="mdl-snackbar__text">{{snackbar.text}}</div>
+        <button class="mdl-snackbar__action" type="button">Cool</button>
+      </div>
+      <!-- Snack Bar -->
+    </div>
+  </body>
+</html>

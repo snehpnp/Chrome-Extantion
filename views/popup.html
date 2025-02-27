@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <link data-load-minified rel="stylesheet" type="text/css" href="/assets/css/zooAll.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link data-load-minified rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <link data-load-minified rel="stylesheet" type="text/css" href="/assets/css/popup.css">
+  
+  <script data-load-concat type="text/javascript" src="/assets/vendors/jquery.min.js"></script>
+  <script data-load-concat type="text/javascript" src="/assets/vendors/angular.min.js"></script>
+  <script data-load-concat type="text/javascript" src="/assets/vendors/semantic.min.js"></script>
+  <script data-load-concat type="text/javascript" src="/assets/vendors/lockr.min.js"></script>
+  <script data-load-concat type="text/javascript" src="/assets/vendors/material.min.js"></script>
+  <script data-load-minify type="text/javascript" src="/controllers/popup.js"></script>
+  
+  <script data-load-obfuscate defer type="text/javascript" src="/libs/ChromeBox.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/libs/FoxCommon.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/libs/Snackbar.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/libs/MaterialDesignLite.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/libs/Auth.js"></script>
+  
+  <script data-load-obfuscate defer type="text/javascript" src="/controllers/localModel.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/controllers/Tabs.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/controllers/welcomeController.js"></script>
+  <script data-load-obfuscate defer type="text/javascript" src="/config/app.js"></script>
+  
+</head>
+
+<body ng-app="popupApp" ng-cloak style="min-height: 560px !important; width: 390px !important; overflow-x: hidden !important;" >
+  
+  <div ng-controller="popupController">
+    
+    <!-- Don't move login from here -->
+    <div class="bg-white w-100 h-100" ng-if="local.activeTab=='login'" style="position: fixed;height: 100vh!important;width: 100%;z-index: 8;" ng-include="'login.html'"></div>
+    
+    <div class="ui p-3 pb-0 mb-0 fluid rounded-0 border-0 borderless" ng-include="'navbar.html'"></div>
+    <ng-include src="'menu.html'"></ng-include>
+    
+    <div class="p-3">
+      <ng-include ng-if="local.activeTab=='home'" src="'home.html'"></ng-include>
+      <ng-include ng-if="local.activeTab=='about'" src="'about.html'"></ng-include>
+      <ng-include ng-if="local.activeTab=='settings'" src="'settings.html'"></ng-include>
+      <ng-include ng-if="local.activeTab=='notifications'" src="'notifications.html'"></ng-include>
+    </div> 
+    
+    
+    <!-- Snack Bar -->
+    <div ng-class="(snackbar.isShown) ? 'mdl-js-snackbar mdl-snackbar mdl-snackbar--active' : 'mdl-js-snackbar mdl-snackbar'" style="z-index: 10;">
+      <div class="mdl-snackbar__text">{{snackbar.text}}</div>
+      <button class="mdl-snackbar__action" type="button">Cool</button>
+    </div>
+    <!-- Snack Bar -->
+    
+    <!-- Extension Footer -->
+    <iframe ng-if="showItemExtensionFooter" ng-src="{{$config.itemExtensionFooter}}" frameborder="0" style="border:0px; width: 100%; height:40px; z-index:9;position: absolute;bottom: 0px; overflow: hidden;"></iframe>
+    <!-- Extension Footer -->
+    
+  </div>
+  
+</body>
+</html>

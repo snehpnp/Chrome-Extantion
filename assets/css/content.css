@@ -1,0 +1,24 @@
+#simple-chrome-extension-toolbar{
+	z-index: 9999999999999999;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	overflow: hide;
+	height: 40vh;
+}
+
+/* Add any custom styles here */
+#extensionNextButton {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 999999;
+}

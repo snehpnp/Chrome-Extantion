@@ -1,0 +1,173 @@
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 2rem;
+}
+
+
+.segment.my-segment {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.statistics {
+    flex: 1
+}
+
+.checkbox-container {
+    display: inline-flex !important
+}
+
+.ui.checkbox {
+    min-height: unset;
+    font-size: unset;
+    line-height: unset;
+    min-width: unset;
+    cursor: pointer;
+}
+
+.custom-disabled {
+    cursor: default;
+	opacity: .45!important;
+	background-image: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+	pointer-events: none!important
+}
+
+.custom-modal {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.old-version-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10;
+}
+
+.alert {
+    color: #E9262C;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.download-button {
+    cursor: pointer;
+    font-weight: bold;
+    border: 0;
+    background-color: #3F49CC;
+    color: white;
+    padding: 0.5rem 1rem;
+    z-index: 11;
+}
+
+.buy-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.buy-section div:first-child {
+    margin-right: 1rem;
+}
+
+.buy-section div:last-child {
+    margin-left: 1rem;
+}
+
+.download-button a, .download-button a:hover, .download-button:visited, .download-button:active {
+    color: white;
+    text-decoration: none !important;
+}
+
+.call-us {
+    color: #3F49CC;
+}
+
+.close-download-modal {
+    border-radius: 4px !important;
+    padding: 0.5rem;
+    background-color: #E9262C;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.close-download-modal > i {
+    color: white !important;
+    margin: 0 !important;
+}
+
+.company-logo img {
+    width: 100%;
+}
+
+.ad-container {
+    display: inline-block;
+    width: 818px;
+    height: 108px;
+    cursor: pointer;
+}
+
+.ad-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.navbar-container .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.software-manifest {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.software-manifest > * {
+    margin-left: .4em;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.software-icon {
+    width: 46px;
+    height: 36px;
+}
+
+.software-name {   
+     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+}
+
+
+.invalid-key {
+    text-align: center;
+    color: red;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.invalid-key a {
+    color: blue;
+    text-decoration: underline;
+}

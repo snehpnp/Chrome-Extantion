@@ -1,0 +1,33 @@
+<div class="ui form mini p-2">
+	
+	<div class="ui large field">
+		<label for="">Swipe direction</label>
+		<select ng-change="saveLocal()" ng-model="local.swipeDirection">
+			<option value="right">Right (Meet)</option>
+			<option value="left">Left (Pass)</option>
+			<option value="super">Super (Super Swipe)</option>
+		</select>
+	</div>
+	
+	<div class="fields">
+		<div class="field">
+			<label for="">Lower limit</label>
+			<input type="number" min="0" ng-change="saveLocal()" ng-model="local.delayLower">
+		</div>
+		<div class="field">
+			<label for="">Upper limit</label>
+			<input type="number" min="0" ng-change="saveLocal()" ng-model="local.delayUpper">
+		</div>
+	</div>
+	
+	<p class="text-bold">After {{local.delayLower}} to {{local.delayUpper}} seconds swipe next profile</p>
+	
+	<div class="field">
+		<button ng-class="local.status ? 'ui button w-100 text-white bg-red': 'ui button w-100 text-white b-bg-primary'" 
+		ng-model="local.status" ng-click="send(local.status ? 'stop' : 'start');local.status = !local.status; saveLocal();">
+		{{local.status ? 'Stop Swiping' : 'Start Swiping'}}
+	</button>
+	
+</div>
+
+</div>

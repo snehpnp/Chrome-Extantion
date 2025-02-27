@@ -1,0 +1,23 @@
+<div class="ui segment">
+    <span class="ui label blue">1</span>  Create new Google Form with one input
+    <span class="ui label blue">2</span>  Goto Response tab and create on google Sheet icon
+    <span class="ui label blue">3</span>  Create a new or use old Google Sheet
+    <span class="ui label blue">4</span>  Open Google Form in view mode
+    <span class="ui label blue">5</span>  Click attach button
+    
+    
+    <div class="form mt-5">
+        <div class="field">
+            <button ng-show="!local._googleForm.actionUrl" class="ui button bg-blue text-white rounded-0" ng-click="send('GoogleForm_attach')"> <i class="ui icon google"></i> Attach Google Form
+                <button ng-show="local._googleForm.actionUrl" class="ui button bg-blue text-white rounded-0" ng-click="send('GoogleForm_detach')"> <i class="ui icon google"></i> Detach Google Form
+                </button>
+            </div>
+        </div>
+        
+        <div class="form mt-5">
+            <div class="field">
+                <button class="ui button bg-blue text-white rounded-0" ng-click="send('GoogleForm_test')"> Send Test Value</button>
+            </div>
+        </div>
+        
+    </div>

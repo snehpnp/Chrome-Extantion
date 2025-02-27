@@ -1,0 +1,18 @@
+    <div class="ui {{$fc.toWord(Tabs.list.length+1)}} item secondary pointing menu mt-0 raised small">
+      <a  ng-repeat="value in Tabs.list" ng-class="(local.activeTab==value.id) ? 'active item': 'item' " ng-click="toggleTab(value.id)">{{value.name}}</a>
+      
+      <div class="right menu">
+        <a class="item">
+          <button id="demo-menu-lower-right"
+          class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">more_vert</i>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu p-0"
+        for="demo-menu-lower-right">
+        <li class="mdl-menu__item" ng-click="toggleTab('about')">About</li>
+        <li class="mdl-menu__item" ng-click="logout()">Logout</li>
+      </ul>
+    </a>
+  </div>
+  
+</div>

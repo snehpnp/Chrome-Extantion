@@ -1,0 +1,32 @@
+<div class="bg-white w-100 h-100" style="position: fixed;height: 100vh!important;width: 100%;z-index: 10;">
+  <div class="field mt-4">
+    <img src="https://cdn.dribbble.com/users/346243/screenshots/2728535/youmi-face.gif" style="width: 80%;margin-left: 40px;">
+    <h4 class="mt-4 text-center">Let's get started</h4>
+  </div>
+  
+  <!-- Form -->
+  <form name="loginForm" class="ui form p-2 m-2">
+    
+    <div class="field">
+      <label>Email</label>
+      <div class="ui input">
+        <input type="email" name="email" class="rounded-0" placeholder="Enter your email" ng-model="loginPage.email" ng-keyup="saveSetting()" required pattern="^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$">
+      </div>
+    </div>
+    
+    <div class="field">
+      <label>Password</label>
+      <div class="ui input">
+        <input type="password" name="password" class="rounded-0" placeholder="Password" ng-model="loginPage.password" ng-keyup="saveSetting()" required>
+      </div>
+    </div>
+    
+    <div class="field">
+      <!-- Loading -->
+      <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate text-green mt-2" ng-show="loginPage.isLoading"></div>    
+      <button class="b-bg-primary mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect text-white text-bold mt-2 w-100" ng-disabled="!loginForm.$valid || loginPage.isLoading" ng-click="login()">Continue</button>
+    </div>
+    
+  </form>
+  <!-- Form -->
+</div>

@@ -1,0 +1,76 @@
+{
+  
+  "name": "Morphy Leads Finder",
+  "description": "Morphy Leads Finder",
+  "version": "6.1",
+  
+  "background": {
+    "service_worker": "controllers/background.js"
+  },
+  "action": {
+    "default_icon": "assets/icons/icon.png",
+    "default_title": "Morphy Leads Finder"
+  },
+  "icons": {
+    "16": "assets/icons/icon.png",
+    "48": "assets/icons/icon.png",
+    "128": "assets/icons/icon.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "unlimitedStorage",
+    "notifications",
+    "contextMenus",
+    "identity",
+    "system.display"
+  ],
+  "host_permissions": [
+    "https://*.google.com/*",
+    "http://foxoyo.store/*",
+    "https://foxoyo.store/*",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "assets/css/content.css"
+      ],
+      "js": [
+        "assets/vendors/lockr.min.js",
+        "assets/vendors/lodash.min.js",
+        "libs/ChromeBox.js",
+        "controllers/localModel.js",
+        "assets/vendors/angular.min.js",
+        "assets/vendors/jquery.min.js",
+        "assets/vendors/semantic.min.js",
+        "libs/foxCommon.js",
+        "controllers/GoogleForm.js",
+        "config/app.js",
+        "libs/TaskManager.js",
+        "controllers/TaskManagerContainer.js",
+        "controllers/content.js",
+        "controllers/index.js"
+    
+
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "controllers/injectedScript.js"
+      ],
+      "matches": [
+        "https://*.google.com/*"
+      ]
+    }
+    
+  ],
+  
+  "manifest_version": 3
+}

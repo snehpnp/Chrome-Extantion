@@ -1,0 +1,1 @@
+$box.simplePopup(chrome.runtime.getURL('/views/index.html'), 'Title');
