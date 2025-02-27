@@ -517,24 +517,13 @@ window.onload = autoFillForm;
 
 
 function nextbtnshow() {
-  console.log("Next Button Script Loaded!");
-
-  // Check if button already exists
-  // if (document.getElementById("next-btn")) return;
-  console.log("Next Button Script Loaded! 1");
-
   // Create "Next" Button
   const nextBtn = document.createElement("button");
 
-  console.log("Next Button Script Loaded! 2");
-
-
   nextBtn.id = "next-btn";
   nextBtn.innerText = "Next";
-  nextBtn.width = "1000px";
-  nextBtn.height = "500px";
   nextBtn.style.position = "fixed";
-  nextBtn.style.bottom = "20px";
+  nextBtn.style.bottom = "150px";
   nextBtn.style.right = "20px";
   nextBtn.style.padding = "10px 20px";
   nextBtn.style.background = "#28a745";
@@ -542,32 +531,58 @@ function nextbtnshow() {
   nextBtn.style.border = "none";
   nextBtn.style.cursor = "pointer";
 
-  console.log("Next Button Script Loaded! 3");
-
   document.body.appendChild(nextBtn);
 
-  console.log("Next Button Added!");
+  // Button Click Function (Now Async)
+  nextBtn.addEventListener("click", async function () {
+    try {
+      const result = await chrome.storage.local.get(["urls", "currentIndex"]);
+      console.log("URLs: ", result.urls);
 
-  // Button Click Function
-  nextBtn.addEventListener("click", function () {
-      chrome.storage.local.get(["urls", "currentIndex"], function (result) {
-        console.log("URLs: ", result.urls);
-        
-          let urls = result.urls || [];
-          let index = result.currentIndex || 0;
+      let urls = result.urls || [];
+      let index = result.currentIndex || 0;
 
-          if (index < urls.length - 1) {
-              let nextUrl = urls[index + 1];
-              chrome.storage.local.set({ currentIndex: index + 1 }, function () {
-                  window.location.href = nextUrl;
-              });
+      if (index < urls.length - 1) {
+        let nextUrl = urls[index + 1];
+
+        await chrome.storage.local.set({ currentIndex: index + 1 });
+
+        // Fetch the next page before redirecting
+        const response = await fetch(nextUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to load ${nextUrl}`);
+        }
+
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, "text/html");
+
+        // Find Contact Us links
+        const contactLinks = Array.from(doc.querySelectorAll("a")).filter(
+          (link) => link.textContent.toLowerCase().includes("contact")
+        );
+
+        if (contactLinks.length > 0) {
+          const newTab = window.open(contactLinks[0].href, "_blank");
+          if (newTab) {
+            newTab.focus();
           } else {
-              alert("No more URLs!");
+            alert("Popup blocked! Please allow popups for this site.");
           }
-      });
+        }
+
+        // Redirect to the next URL
+        window.location.href = nextUrl;
+      } else {
+        alert("No more URLs!");
+      }
+    } catch (error) {
+      console.error("Error in Next Button:", error);
+    }
   });
 }
 
-
+// Load the function on page load
 window.onload = nextbtnshow;
+
 

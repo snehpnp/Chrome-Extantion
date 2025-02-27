@@ -15,21 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "http://www.gisindore.in/",
         "https://www.takshsheela.com/",
         
-        // "http://www.diaspark.com/",
-        // "https://www.thoughtwin.com/",
-        // "https://nrewind.com/",
-        // "https://www.betaitsolution.com/",
-        // "https://codezilla.io/",
-        // "	https://www.infobeans.com/"
+      
     ];
 
-    chrome.runtime.onInstalled.addListener(() => {
-        chrome.storage.local.set({
-            urls: urls,
-            currentIndex: 0
-        });
-    });
-    
+ 
 
     function showForm() {
         form.style.display = "block";
@@ -45,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function storeFormData(name, email, phone, description) {
         localStorage.setItem("formData", JSON.stringify({ name, email, phone, description }));
         chrome.storage.local.set({ 
-            user: { name, email , phone, description }
+            user: { name, email , phone, description },
+            urls: urls,
         }, function () {
             // console.log("User data saved!");
         });
