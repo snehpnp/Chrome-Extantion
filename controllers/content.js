@@ -513,7 +513,6 @@ function autoFillForm() {
 
 // ADD DANIMIC CODE DO ADDOWNBUTTON ON ALL PAGE TO HIT NEXTCHANGE URL
 
-window.onload = autoFillForm;
 
 
 function nextbtnshow() {
@@ -582,7 +581,10 @@ function nextbtnshow() {
   });
 }
 
-// Load the function on page load
-window.onload = nextbtnshow;
+window.onload = function () {
+  autoFillForm();  // Pehla function chalayega
+  nextbtnshow();   // Dusra function chalayega
+};
+
 
 
