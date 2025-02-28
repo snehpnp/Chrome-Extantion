@@ -519,8 +519,35 @@ function autoFillForm() {
 
 // ADD DANIMIC CODE DO ADDOWNBUTTON ON ALL PAGE TO HIT NEXTCHANGE URL
 
-function nextbtnshow() {
-  // Create "Next" Button
+async function nextbtnshow() {
+
+  const result = await chrome.storage.local.get(["Domain"]);
+  let allowedDomains = result?.Domain || [];
+
+  console.log("Raw allowedDomains from storage:", allowedDomains);
+
+  // ✅ Clean the stored URLs to extract only domain names
+  let cleanedDomains = allowedDomains.map(url => {
+      try {
+          return new URL(url).hostname; // Extract hostname from full URL
+      } catch (e) {
+          console.warn("Invalid URL format:", url);
+          return null;
+      }
+  }).filter(Boolean); // Remove null values
+
+  console.log("Cleaned allowedDomains:", cleanedDomains);
+
+  // ✅ Get current domain
+  const currentDomain = window.location.hostname;
+  console.log("Current domain:", currentDomain);
+
+  // ✅ Check if current domain is in the allowed list
+  if (!cleanedDomains.includes(currentDomain)) {
+      console.log("Current domain is not in the allowed list. Button will not be shown.");
+      return; // ❌ If not in list, do nothing
+  }
+
 
   const nextBtn = document.createElement("button");
   nextBtn.id = "next-btn";

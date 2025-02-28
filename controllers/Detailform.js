@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         user: { name, email, phone, description },
         urls: UrlData,
+        Domain :UrlData.map((item) => item.website),
       },
       function () {
         // console.log("User data saved!");
