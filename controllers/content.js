@@ -354,7 +354,6 @@ function extractDataFromListing(listing, parentElement, cid) {
     let countryCode = parsedNumber.countryCode;
     phoneNumber = parsedNumber.localNumber;
 
-
     let ignoreMatch = ratings.match(
       /\b(Closed|Opens|closed|closes|opens|Open)\b/i
     );
@@ -482,7 +481,6 @@ function autoFillForm() {
         'textarea[name="description"], textarea[placeholder*="message"], textarea[id*="message"]'
       );
 
-
       if (nameInput) {
         nameInput.value = name;
         nameInput.dispatchEvent(new Event("input", { bubbles: true }));
@@ -505,88 +503,37 @@ function autoFillForm() {
         descriptionInput.dispatchEvent(new Event("input", { bubbles: true }));
         descriptionInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
-
-
     });
   });
 }
 
 // ADD DANIMIC CODE DO ADDOWNBUTTON ON ALL PAGE TO HIT NEXTCHANGE URL
 
-
-
 function nextbtnshow() {
   // Create "Next" Button
-  const nextBtn = document.createElement("button");
 
+  const nextBtn = document.createElement("button");
   nextBtn.id = "next-btn";
   nextBtn.innerText = "Next";
   nextBtn.style.position = "fixed";
-  nextBtn.style.bottom = "150px";
+  nextBtn.style.bottom = "200px";
   nextBtn.style.right = "20px";
   nextBtn.style.padding = "10px 20px";
   nextBtn.style.background = "#28a745";
   nextBtn.style.color = "white";
   nextBtn.style.border = "none";
   nextBtn.style.cursor = "pointer";
-
+nextBtn.style.zIndex = "9999999999";
   document.body.appendChild(nextBtn);
 
-  // Button Click Function (Now Async)
-  nextBtn.addEventListener("click", async function () {
-    try {
-      const result = await chrome.storage.local.get(["urls", "currentIndex"]);
-      console.log("URLs: ", result.urls);
-
-      let urls = result.urls || [];
-      let index = result.currentIndex || 0;
-
-      if (index < urls.length - 1) {
-        let nextUrl = urls[index + 1];
-
-        await chrome.storage.local.set({ currentIndex: index + 1 });
-
-        console.log("Navigating to next URL:", nextUrl);
-        // Fetch the next page before redirecting
-        const response = await fetch(nextUrl);
-        if (!response.ok) {
-          throw new Error(`Failed to load ${nextUrl}`);
-        }
-
-        const htmlText = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, "text/html");
-
-        // Find Contact Us links
-        const contactLinks = Array.from(doc.querySelectorAll("a")).filter(
-          (link) => link.textContent.toLowerCase().includes("contact")
-        );
-        console.log("Contact Links:", contactLinks);
-
-        if (contactLinks.length > 0) {
-          const newTab = window.open(contactLinks[0].href, "_blank");
-          if (newTab) {
-            newTab.focus();
-          } else {
-            alert("Popup blocked! Please allow popups for this site.");
-          }
-        }
-
-        // Redirect to the next URL
-        // window.location.href = nextUrl;
-      } else {
-        alert("No more URLs!");
-      }
-    } catch (error) {
-      console.error("Error in Next Button:", error);
-    }
+  nextBtn.addEventListener("click", async () => {
+      // Close the current tab and open the next URL
+      chrome.runtime.sendMessage({ action: "openNextUrl" });
+      window.close();
   });
 }
 
 window.onload = function () {
-  autoFillForm();  // Pehla function chalayega
-  nextbtnshow();   // Dusra function chalayega
+  autoFillForm(); // Pehla function chalayega
+  nextbtnshow(); // Dusra function chalayega
 };
-
-
-
