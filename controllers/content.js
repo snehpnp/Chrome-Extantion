@@ -481,6 +481,8 @@ function autoFillForm() {
         'textarea[name="description"], textarea[placeholder*="message"], textarea[id*="message"]'
       );
 
+      let textareas = form.querySelectorAll('textarea');
+
       if (nameInput) {
         nameInput.value = name;
         nameInput.dispatchEvent(new Event("input", { bubbles: true }));
@@ -503,6 +505,14 @@ function autoFillForm() {
         descriptionInput.dispatchEvent(new Event("input", { bubbles: true }));
         descriptionInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
+
+      if (textareas.length > 0) {
+        textareas.forEach((textarea) => {
+            textarea.value = description;
+            textarea.dispatchEvent(new Event("input", { bubbles: true }));
+            textarea.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+    }
     });
   });
 }
