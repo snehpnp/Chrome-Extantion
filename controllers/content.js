@@ -583,6 +583,13 @@ function processFormElements(formElement, userData) {
     description = "",
   } = userData;
 
+
+
+  const fullName = fullname;
+  const firstNameValue = firstname;
+  const lastNameValue = lastname;
+  console.log("2");
+
   const fieldMappings = [
     {
       selectors: [
@@ -593,13 +600,17 @@ function processFormElements(formElement, userData) {
         'input[placeholder*="name"]:not([placeholder*="last"])',
         'input[name*="full"]',
         'input[id*="full"]',
+        'input[placeholder*="Name*"]',
+        'input[placeholder*="Name"]',
+
+
         'input[name="your-name"]',
         'input[name="form_fields[name]"]',
         'input[data-name*="name"]:not([data-name*="last"])',
         'input[aria-label*="name"]:not([aria-label*="last"])',
         '.hs-input[name*="name"]:not([name*="last"])',
       ],
-      value: fullname,
+      value: fullName,
       type: "name",
     },
     {
@@ -607,6 +618,7 @@ function processFormElements(formElement, userData) {
         'input[name*="first"]',
         'input[id*="first"]',
         'input[name="fname"]',
+        'input[name="Name_First"]',
         'input[id="fname"]',
         'input[name*="firstname"]',
         'input[id*="firstname"]',
@@ -617,7 +629,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="first name"]',
         '.hs-input[name*="first"]',
       ],
-      value: firstname,
+      value: firstNameValue,
       type: "firstname",
     },
     {
@@ -625,6 +637,8 @@ function processFormElements(formElement, userData) {
         'input[name*="last"]',
         'input[id*="last"]',
         'input[name="lname"]',
+        'input[name="Name_Last"]',
+
         'input[id="lname"]',
         'input[name*="lastname"]',
         'input[id*="lastname"]',
@@ -637,7 +651,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="last name"]',
         '.hs-input[name*="last"]',
       ],
-      value: lastname,
+      value: lastNameValue,
       type: "lastname",
     },
     {
@@ -715,6 +729,8 @@ function processFormElements(formElement, userData) {
         'input[id*="business"]',
         'input[placeholder*="company"]',
         'input[placeholder*="organization"]',
+        'input[placeholder*="Company Name*"]',
+
         'input[name="your-company"]',
         'input[name="form_fields[company]"]',
         'input[data-name*="company"]',
@@ -743,7 +759,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="job"]',
         '.hs-input[name*="job"]',
       ],
-      value: jobTitle,
+      value: jobtitle,
       type: "job",
     },
     {
@@ -785,24 +801,7 @@ function processFormElements(formElement, userData) {
       value: subject,
       type: "subject",
     },
-    {
-      selectors: [
-        'input[name="budget"]',
-        'input[id="budget"]',
-        'input[name*="budget"]',
-        'input[id*="budget"]',
-        'input[name*="price"]',
-        'input[id*="price"]',
-        'input[placeholder*="budget"]',
-        'input[name="your-budget"]',
-        'input[name="form_fields[budget]"]',
-        'input[data-name*="budget"]',
-        'input[aria-label*="budget"]',
-        '.hs-input[name*="budget"]',
-      ],
-      value: budget,
-      type: "budget",
-    },
+
     {
       selectors: [
         'input[name="address"]',
@@ -818,31 +817,10 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="street address"]',
         '.hs-input[name*="street"]',
       ],
-      value: street || full,
+      value: address ,
       type: "street",
     },
-    {
-      selectors: [
-        'input[name*="address2"]',
-        'input[id*="address2"]',
-        'input[name*="suite"]',
-        'input[id*="suite"]',
-        'input[name*="apt"]',
-        'input[id*="apt"]',
-        'input[placeholder*="suite"]',
-        'input[placeholder*="apartment"]',
-        'input[name="your-address-2"]',
-        'input[name="form_fields[address_2]"]',
-        '.hs-input[name*="address2"]',
-      ],
-      value: suite,
-      type: "suite",
-    },
-    {
-      selectors: ['input[name="jobtitle"]', 'input[id="jobtitle"]'],
-      value: jobtitle,
-      type: "jobtitle",
-    },
+   
     {
       selectors: [
         'input[name="city"]',
@@ -861,24 +839,7 @@ function processFormElements(formElement, userData) {
       value: city,
       type: "city",
     },
-    {
-      selectors: [
-        'input[name="state"]',
-        'input[id="state"]',
-        'input[name*="state"]',
-        'input[id*="state"]',
-        'input[name*="province"]',
-        'input[id*="province"]',
-        'input[placeholder*="state"]',
-        'input[name="your-state"]',
-        'input[name="form_fields[state]"]',
-        'input[data-name*="state"]',
-        'input[aria-label*="state"]',
-        '.hs-input[name*="state"]',
-      ],
-      value: state,
-      type: "state",
-    },
+ 
     {
       selectors: [
         'input[name="zip"]',
@@ -895,7 +856,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="zip"]',
         '.hs-input[name*="zip"]',
       ],
-      value: zip,
+      value: zipcode,
       type: "zip",
     },
     {
@@ -905,6 +866,9 @@ function processFormElements(formElement, userData) {
         'input[name*="country"]',
         'input[id*="country"]',
         'input[placeholder*="country"]',
+        'input[placeholder*="Country"]',
+
+        
         'input[name="your-country"]',
         'input[name="form_fields[country]"]',
         'input[data-name*="country"]',
@@ -942,103 +906,78 @@ function processFormElements(formElement, userData) {
     },
     {
       selectors: [
-        'input[name="budget"]',
-        'input[id="budget"]',
-        'input[name*="budget"]',
-        'input[id*="budget"]',
-        'input[name*="price"]',
-        'input[id*="price"]',
-        'input[placeholder*="budget"]',
-        'input[name="your-budget"]',
-        'input[name="form_fields[budget]"]',
-        'input[data-name*="budget"]',
-        'input[aria-label*="budget"]',
-        '.hs-input[name*="budget"]',
+        'input[name="industry"]',
+        'input[id="industry"]',
+        'input[name*="industry"]',
+        'input[id*="industry"]',
+        'input[placeholder*="industry"]',
+        'input[name="your-industry"]',
+        'input[name="form_fields[industry]"]',
+        'input[data-name*="industry"]',
+        'input[aria-label*="industry"]',
+        '.hs-input[name*="industry"]',
       ],
-      value: budget,
-      type: "budget",
+      value: industry,
+      type: "industry",
     },
     {
       selectors: [
-        'input[name="address"]',
-        'input[id="address"]',
-        'input[name*="address1"]',
-        'input[id*="address1"]',
-        'input[name*="street"]',
-        'input[id*="street"]',
-        'input[placeholder*="street address"]',
-        'input[name="your-address"]',
-        'input[name="form_fields[address]"]',
-        'input[data-name*="address"]',
-        'input[aria-label*="street address"]',
-        '.hs-input[name*="street"]',
+        'input[name="whatsapp"]',
+        'input[id="whatsapp"]',
+        'input[name*="whatsapp"]',
+        'input[id*="whatsapp"]',
+        'input[placeholder*="whatsapp"]',
+        'input[name="your-whatsapp"]',
+        'input[name="form_fields[whatsapp]"]',
+        'input[data-name*="whatsapp"]',
+        'input[aria-label*="whatsapp"]',
+        '.hs-input[name*="whatsapp"]',
       ],
-      value: street,
-      type: "street",
-    },
-    {
-      selectors: [
-        'input[name*="address2"]',
-        'input[id*="address2"]',
-        'input[name*="suite"]',
-        'input[id*="suite"]',
-        'input[name*="apt"]',
-        'input[id*="apt"]',
-        'input[placeholder*="suite"]',
-        'input[placeholder*="apartment"]',
-        'input[name="your-address-2"]',
-        'input[name="form_fields[address_2]"]',
-        '.hs-input[name*="address2"]',
-      ],
-      value: suite,
-      type: "suite",
-    },
-    {
-      selectors: ['input[name="skype"]', 'input[id="skype"]'],
-      value: skype,
-      type: "skype",
-    },
-    {
-      selectors: ['input[name="zipcode"]', 'input[id="zipcode"]'],
-      value: zipcode,
-      type: "zipcode",
-    },
-    {
-      selectors: ['input[name="address"]', 'input[id="address"]'],
-      value: address,
-      type: "address",
-    },
-    {
-      selectors: ['input[name="whatsapp"]', 'input[id="whatsapp"]'],
       value: whatsapp,
       type: "whatsapp",
     },
     {
-      selectors: ['input[name="industry"]', 'input[id="industry"]'],
-      value: industry,
-      type: "industry",
+      selectors: [
+        'input[name="skype"]',
+        'input[id="skype"]',
+        'input[name*="skype"]',
+        'input[id*="skype"]',
+        'input[placeholder*="skype"]',
+        'input[name="your-skype"]',
+        'input[name="form_fields[skype]"]',
+        'input[data-name*="skype"]',
+        'input[aria-label*="skype"]',
+        '.hs-input[name*="skype"]',
+      ],
+      value: skype,
+      type: "skype",
     },
   ];
+  console.log("3");
 
   const labels = formElement.querySelectorAll("label");
   labels.forEach((label) => {
     const labelText = label.textContent.toLowerCase().trim();
     const forAttr = label.getAttribute("for");
+    console.log("forAttr",{ labelText, forAttr });
 
     if (forAttr) {
       const field = formElement.querySelector(`#${forAttr}`);
+      console.log("field", field);
       if (field) {
         if (
           /name|full\s*name/i.test(labelText) &&
           !/(last|surname)/i.test(labelText)
         ) {
-          fillField(field, fullname);
+          fillField(field, fullName);
         } else if (/first\s*name|nombre|given\s*name/i.test(labelText)) {
-          fillField(field, firstname);
+          fillField(field, firstNameValue);
         } else if (/last\s*name|surname|family\s*name/i.test(labelText)) {
-          fillField(field, lastname);
+          fillField(field, lastNameValue);
         } else if (/e[-\s]?mail|correo/i.test(labelText)) {
           fillField(field, email);
+        } else if (/username|user\s*name|usuario/i.test(labelText)) {
+          fillField(field, username);
         } else if (
           /phone|telephone|tel|mobile|phone\s*number|telefono/i.test(labelText)
         ) {
@@ -1046,7 +985,7 @@ function processFormElements(formElement, userData) {
         } else if (/company|organization|business|empresa/i.test(labelText)) {
           fillField(field, company);
         } else if (/job|position|title|occupation|role/i.test(labelText)) {
-          fillField(field, jobTitle);
+          fillField(field, jobtitle);
         } else if (/website|site|url|web\s*address/i.test(labelText)) {
           fillField(field, website);
         } else if (/subject|topic|regarding|about|asunto/i.test(labelText)) {
@@ -1057,36 +996,42 @@ function processFormElements(formElement, userData) {
           )
         ) {
           fillField(field, description);
-        } else if (
-          /street|address|address1/i.test(labelText) &&
-          !/address2|apt|suite/i.test(labelText)
-        ) {
-          fillField(field, street || full);
-        } else if (/address2|suite|apt|apartment|unit/i.test(labelText)) {
-          fillField(field, suite);
-        } else if (/city|town|locality/i.test(labelText)) {
+        }else if(/address|street|direccion/i.test(labelText)){
+          fillField(field, address);
+        }else if(/city|town|ciudad/i.test(labelText)){
           fillField(field, city);
-        } else if (/state|province|region/i.test(labelText)) {
-          fillField(field, state);
-        } else if (/zip|postal|postcode/i.test(labelText)) {
-          fillField(field, zip);
-        } else if (/country|nation/i.test(labelText)) {
+        }else if(/zip|postal|code|codigo/i.test(labelText)){
+          fillField(field, zipcode);
+        }else if(/country|pais/i.test(labelText)){
           fillField(field, country);
-        } else if (/budget|price|cost|estimate/i.test(labelText)) {
-          fillField(field, budget);
+        }else if(/industry|industria/i.test(labelText)){
+          fillField(field, industry);
+        }else if(/whatsapp/i.test(labelText)){
+          fillField(field, whatsapp);
+        }else if(/skype/i.test(labelText)){
+          fillField(field, skype);
         }
+
       }
     }
+
   });
   fieldMappings.forEach((mapping) => {
+  console.log("4");
+
     let filled = false;
     for (let selector of mapping.selectors) {
       if (filled) break;
+      console.log("5");
 
       const fields = formElement.querySelectorAll(selector);
       if (fields.length > 0) {
+  console.log("6");
+
         fields.forEach((field) => {
           if (isVisibleField(field) && !filled && shouldFillField(field)) {
+  console.log("7");
+
             fillField(field, mapping.value);
             filled = true;
           }
@@ -1144,7 +1089,7 @@ function handleDropdowns(formElement, userData) {
       ) {
         selectOptionByText(
           select,
-          userData.name || `${userData.firstName} ${userData.lastName}`
+          userData.name || `${userData.firstname} ${userData.lastName}`
         );
       } else if (
         selectName.includes("state") ||
@@ -1324,10 +1269,13 @@ function findAndFillField(formElement, selectors, value) {
 
 function fillField(field, value) {
   const originalValue = field.value;
+  console.log("Filling field ---", field, "with value", value);
 
   if (field.value.trim() !== "" && field.value.length > 3) {
     return;
   }
+
+console.log("Filling field", field, "with value", value);
 
   field.value = value;
 

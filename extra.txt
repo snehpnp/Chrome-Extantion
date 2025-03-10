@@ -1,0 +1,556 @@
+function processFormElements(formElement, userData) {
+  const {
+    firstname = "",
+    lastname = "",
+    fullname = "",
+    username = "",
+    email = "",
+    phone = "",
+    subject = "",
+    company = "",
+    jobtitle = "",
+    country = "",
+    website = "",
+    skype = "",
+    zipcode = "",
+    address = "",
+    city = "",
+    whatsapp = "",
+    industry = "",
+    description = "",
+  } = userData;
+
+  console.log(firstname ,
+    lastname ,
+    fullname ,
+    username ,
+    email ,
+    phone ,
+    subject ,
+    company ,
+    jobtitle ,
+    country ,
+    website ,
+    skype ,
+    zipcode ,
+    address ,
+    city ,
+    whatsapp ,
+    industry ,
+    description )
+
+  const fieldMappings = [
+    {
+      selectors: [
+        'input[name="name"]',
+        'input[id="name"]',
+        'input[name*="name"]:not([name*="last"]):not([name*="surname"])',
+        'input[id*="name"]:not([id*="last"]):not([id*="surname"])',
+        'input[placeholder*="name"]:not([placeholder*="last"])',
+        'input[name*="full"]',
+        'input[id*="full"]',
+        'input[name="your-name"]',
+        'input[name="form_fields[name]"]',
+        'input[data-name*="name"]:not([data-name*="last"])',
+        'input[aria-label*="name"]:not([aria-label*="last"])',
+        '.hs-input[name*="name"]:not([name*="last"])',
+      ],
+      value: fullname,
+      type: "name",
+    },
+    {
+      selectors: [
+        'input[name*="first"]',
+        'input[id*="first"]',
+        'input[name="fname"]',
+        'input[id="fname"]',
+        'input[name*="firstname"]',
+        'input[id*="firstname"]',
+        'input[placeholder*="first name"]',
+        'input[name="your-first-name"]',
+        'input[name="form_fields[first_name]"]',
+        'input[data-name*="first"]',
+        'input[aria-label*="first name"]',
+        '.hs-input[name*="first"]',
+      ],
+      value: firstname,
+      type: "firstname",
+    },
+    {
+      selectors: [
+        'input[name*="last"]',
+        'input[id*="last"]',
+        'input[name="lname"]',
+        'input[id="lname"]',
+        'input[name*="lastname"]',
+        'input[id*="lastname"]',
+        'input[name*="surname"]',
+        'input[id*="surname"]',
+        'input[placeholder*="last name"]',
+        'input[name="your-last-name"]',
+        'input[name="form_fields[last_name]"]',
+        'input[data-name*="last"]',
+        'input[aria-label*="last name"]',
+        '.hs-input[name*="last"]',
+      ],
+      value: lastname,
+      type: "lastname",
+    },
+    {
+      selectors: [
+        'input[name="username"]',
+        'input[id="username"]',
+        'input[name*="username"]',
+        'input[id*="username"]',
+        'input[placeholder*="username"]',
+        'input[name="your-username"]',
+        'input[name="form_fields[username]"]',
+        'input[data-name*="username"]',
+        'input[aria-label*="username"]',
+        '.hs-input[name*="username"]',
+      ],
+      value: username,
+      type: "username",
+    },
+    {
+      selectors: [
+        'input[name="email"]',
+        'input[id="email"]',
+        'input[name*="email"]',
+        'input[id*="email"]',
+        'input[type="email"]',
+        'input[name*="mail"]',
+        'input[id*="mail"]',
+        'input[placeholder*="email"]',
+        'input[placeholder*="mail"]',
+        'input[name="your-email"]',
+        'input[name="form_fields[email]"]',
+        'input[data-name*="email"]',
+        'input[aria-label*="email"]',
+        '.hs-input[name*="email"]',
+      ],
+      value: email,
+      type: "email",
+    },
+    {
+      selectors: [
+        'input[name="phone"]',
+        'input[id="phone"]',
+        'input[name*="phone"]',
+        'input[id*="phone"]',
+        'input[type="tel"]',
+        'input[name*="tel"]',
+        'input[id*="tel"]',
+        'input[placeholder*="phone"]',
+        'input[placeholder*="mobile"]',
+        'input[name*="mobile"]',
+        'input[id*="mobile"]',
+        'input[name*="number"]',
+        'input[id*="number"]',
+        'input[name="your-phone"]',
+        'input[name="form_fields[phone]"]',
+        'input[data-name*="phone"]',
+        'input[aria-label*="phone"]',
+        'input[name="contact"]',
+        'input[id*="contact"]',
+
+        '.hs-input[name*="phone"]',
+      ],
+      value: phone,
+      type: "phone",
+    },
+    {
+      selectors: [
+        'input[name="company"]',
+        'input[id="company"]',
+        'input[name*="company"]',
+        'input[id*="company"]',
+        'input[name*="organization"]',
+        'input[id*="organization"]',
+        'input[name*="business"]',
+        'input[id*="business"]',
+        'input[placeholder*="company"]',
+        'input[placeholder*="organization"]',
+        'input[name="your-company"]',
+        'input[name="form_fields[company]"]',
+        'input[data-name*="company"]',
+        'input[aria-label*="company"]',
+        '.hs-input[name*="company"]',
+      ],
+      value: company,
+      type: "company",
+    },
+    {
+      selectors: [
+        'input[name="job"]',
+        'input[id="job"]',
+        'input[name*="job"]',
+        'input[id*="job"]',
+        'input[name*="title"]',
+        'input[id*="title"]',
+        'input[name*="position"]',
+        'input[id*="position"]',
+        'input[placeholder*="job"]',
+        'input[placeholder*="position"]',
+        'input[placeholder*="title"]',
+        'input[name="your-job-title"]',
+        'input[name="form_fields[job_title]"]',
+        'input[data-name*="job"]',
+        'input[aria-label*="job"]',
+        '.hs-input[name*="job"]',
+      ],
+      value: jobTitle,
+      type: "job",
+    },
+    {
+      selectors: [
+        'input[name="website"]',
+        'input[id="website"]',
+        'input[name*="website"]',
+        'input[id*="website"]',
+        'input[name*="url"]',
+        'input[id*="url"]',
+        'input[type="url"]',
+        'input[placeholder*="website"]',
+        'input[placeholder*="url"]',
+        'input[name="your-website"]',
+        'input[name="form_fields[website]"]',
+        'input[data-name*="website"]',
+        'input[aria-label*="website"]',
+        '.hs-input[name*="website"]',
+      ],
+      value: website,
+      type: "website",
+    },
+    {
+      selectors: [
+        'input[name="subject"]',
+        'input[id="subject"]',
+        'input[name*="subject"]',
+        'input[id*="subject"]',
+        'input[name*="topic"]',
+        'input[id*="topic"]',
+        'input[placeholder*="subject"]',
+        'input[placeholder*="topic"]',
+        'input[name="your-subject"]',
+        'input[name="form_fields[subject]"]',
+        'input[data-name*="subject"]',
+        'input[aria-label*="subject"]',
+        '.hs-input[name*="subject"]',
+      ],
+      value: subject,
+      type: "subject",
+    },
+    {
+      selectors: [
+        'input[name="budget"]',
+        'input[id="budget"]',
+        'input[name*="budget"]',
+        'input[id*="budget"]',
+        'input[name*="price"]',
+        'input[id*="price"]',
+        'input[placeholder*="budget"]',
+        'input[name="your-budget"]',
+        'input[name="form_fields[budget]"]',
+        'input[data-name*="budget"]',
+        'input[aria-label*="budget"]',
+        '.hs-input[name*="budget"]',
+      ],
+      value: budget,
+      type: "budget",
+    },
+    {
+      selectors: [
+        'input[name="address"]',
+        'input[id="address"]',
+        'input[name*="address1"]',
+        'input[id*="address1"]',
+        'input[name*="street"]',
+        'input[id*="street"]',
+        'input[placeholder*="street address"]',
+        'input[name="your-address"]',
+        'input[name="form_fields[address]"]',
+        'input[data-name*="address"]',
+        'input[aria-label*="street address"]',
+        '.hs-input[name*="street"]',
+      ],
+      value: street || full,
+      type: "street",
+    },
+    {
+      selectors: [
+        'input[name*="address2"]',
+        'input[id*="address2"]',
+        'input[name*="suite"]',
+        'input[id*="suite"]',
+        'input[name*="apt"]',
+        'input[id*="apt"]',
+        'input[placeholder*="suite"]',
+        'input[placeholder*="apartment"]',
+        'input[name="your-address-2"]',
+        'input[name="form_fields[address_2]"]',
+        '.hs-input[name*="address2"]',
+      ],
+      value: suite,
+      type: "suite",
+    },
+    {
+      selectors: ['input[name="jobtitle"]', 'input[id="jobtitle"]'],
+      value: jobtitle,
+      type: "jobtitle",
+    },
+    {
+      selectors: [
+        'input[name="city"]',
+        'input[id="city"]',
+        'input[name*="city"]',
+        'input[id*="city"]',
+        'input[name*="town"]',
+        'input[id*="town"]',
+        'input[placeholder*="city"]',
+        'input[name="your-city"]',
+        'input[name="form_fields[city]"]',
+        'input[data-name*="city"]',
+        'input[aria-label*="city"]',
+        '.hs-input[name*="city"]',
+      ],
+      value: city,
+      type: "city",
+    },
+    {
+      selectors: [
+        'input[name="state"]',
+        'input[id="state"]',
+        'input[name*="state"]',
+        'input[id*="state"]',
+        'input[name*="province"]',
+        'input[id*="province"]',
+        'input[placeholder*="state"]',
+        'input[name="your-state"]',
+        'input[name="form_fields[state]"]',
+        'input[data-name*="state"]',
+        'input[aria-label*="state"]',
+        '.hs-input[name*="state"]',
+      ],
+      value: state,
+      type: "state",
+    },
+    {
+      selectors: [
+        'input[name="zip"]',
+        'input[id="zip"]',
+        'input[name*="zip"]',
+        'input[id*="zip"]',
+        'input[name*="postal"]',
+        'input[id*="postal"]',
+        'input[placeholder*="zip"]',
+        'input[placeholder*="postal"]',
+        'input[name="your-zip"]',
+        'input[name="form_fields[zip]"]',
+        'input[data-name*="zip"]',
+        'input[aria-label*="zip"]',
+        '.hs-input[name*="zip"]',
+      ],
+      value: zip,
+      type: "zip",
+    },
+    {
+      selectors: [
+        'input[name="country"]',
+        'input[id="country"]',
+        'input[name*="country"]',
+        'input[id*="country"]',
+        'input[placeholder*="country"]',
+        'input[name="your-country"]',
+        'input[name="form_fields[country]"]',
+        'input[data-name*="country"]',
+        'input[aria-label*="country"]',
+        '.hs-input[name*="country"]',
+      ],
+      value: country,
+      type: "country",
+    },
+    {
+      selectors: [
+        "textarea",
+        'textarea[name="message"]',
+        'textarea[id="message"]',
+        'textarea[name*="message"]',
+        'textarea[id*="message"]',
+        'textarea[name="description"]',
+        'textarea[id="description"]',
+        'textarea[name*="comment"]',
+        'textarea[id*="comment"]',
+        'textarea[placeholder*="message"]',
+        'textarea[placeholder*="description"]',
+        'textarea[name*="body"]',
+        'textarea[id*="body"]',
+        'textarea[name*="text"]',
+        'textarea[id*="text"]',
+        'textarea[name="your-message"]',
+        'textarea[name="form_fields[message]"]',
+        'textarea[data-name*="message"]',
+        'textarea[aria-label*="message"]',
+        '.hs-input[name*="message"]',
+      ],
+      value: description,
+      type: "message",
+    },
+    {
+      selectors: [
+        'input[name="budget"]',
+        'input[id="budget"]',
+        'input[name*="budget"]',
+        'input[id*="budget"]',
+        'input[name*="price"]',
+        'input[id*="price"]',
+        'input[placeholder*="budget"]',
+        'input[name="your-budget"]',
+        'input[name="form_fields[budget]"]',
+        'input[data-name*="budget"]',
+        'input[aria-label*="budget"]',
+        '.hs-input[name*="budget"]',
+      ],
+      value: budget,
+      type: "budget",
+    },
+    {
+      selectors: [
+        'input[name="address"]',
+        'input[id="address"]',
+        'input[name*="address1"]',
+        'input[id*="address1"]',
+        'input[name*="street"]',
+        'input[id*="street"]',
+        'input[placeholder*="street address"]',
+        'input[name="your-address"]',
+        'input[name="form_fields[address]"]',
+        'input[data-name*="address"]',
+        'input[aria-label*="street address"]',
+        '.hs-input[name*="street"]',
+      ],
+      value: street,
+      type: "street",
+    },
+    {
+      selectors: [
+        'input[name*="address2"]',
+        'input[id*="address2"]',
+        'input[name*="suite"]',
+        'input[id*="suite"]',
+        'input[name*="apt"]',
+        'input[id*="apt"]',
+        'input[placeholder*="suite"]',
+        'input[placeholder*="apartment"]',
+        'input[name="your-address-2"]',
+        'input[name="form_fields[address_2]"]',
+        '.hs-input[name*="address2"]',
+      ],
+      value: suite,
+      type: "suite",
+    },
+    {
+      selectors: ['input[name="skype"]', 'input[id="skype"]'],
+      value: skype,
+      type: "skype",
+    },
+    {
+      selectors: ['input[name="zipcode"]', 'input[id="zipcode"]'],
+      value: zipcode,
+      type: "zipcode",
+    },
+    {
+      selectors: ['input[name="address"]', 'input[id="address"]'],
+      value: address,
+      type: "address",
+    },
+    {
+      selectors: ['input[name="whatsapp"]', 'input[id="whatsapp"]'],
+      value: whatsapp,
+      type: "whatsapp",
+    },
+    {
+      selectors: ['input[name="industry"]', 'input[id="industry"]'],
+      value: industry,
+      type: "industry",
+    },
+  ];
+
+  const labels = formElement.querySelectorAll("label");
+  labels.forEach((label) => {
+    const labelText = label.textContent.toLowerCase().trim();
+    const forAttr = label.getAttribute("for");
+
+    if (forAttr) {
+      const field = formElement.querySelector(`#${forAttr}`);
+      if (field) {
+        if (
+          /name|full\s*name/i.test(labelText) &&
+          !/(last|surname)/i.test(labelText)
+        ) {
+          fillField(field, fullname);
+        } else if (/first\s*name|nombre|given\s*name/i.test(labelText)) {
+          fillField(field, firstname);
+        } else if (/last\s*name|surname|family\s*name/i.test(labelText)) {
+          fillField(field, lastname);
+        } else if (/e[-\s]?mail|correo/i.test(labelText)) {
+          fillField(field, email);
+        } else if (
+          /phone|telephone|tel|mobile|phone\s*number|telefono/i.test(labelText)
+        ) {
+          fillField(field, phone);
+        } else if (/company|organization|business|empresa/i.test(labelText)) {
+          fillField(field, company);
+        } else if (/job|position|title|occupation|role/i.test(labelText)) {
+          fillField(field, jobTitle);
+        } else if (/website|site|url|web\s*address/i.test(labelText)) {
+          fillField(field, website);
+        } else if (/subject|topic|regarding|about|asunto/i.test(labelText)) {
+          fillField(field, subject);
+        } else if (
+          /message|comment|description|body|inquiry|question|mensaje/i.test(
+            labelText
+          )
+        ) {
+          fillField(field, description);
+        } else if (
+          /street|address|address1/i.test(labelText) &&
+          !/address2|apt|suite/i.test(labelText)
+        ) {
+          fillField(field, street || full);
+        } else if (/address2|suite|apt|apartment|unit/i.test(labelText)) {
+          fillField(field, suite);
+        } else if (/city|town|locality/i.test(labelText)) {
+          fillField(field, city);
+        } else if (/state|province|region/i.test(labelText)) {
+          fillField(field, state);
+        } else if (/zip|postal|postcode/i.test(labelText)) {
+          fillField(field, zip);
+        } else if (/country|nation/i.test(labelText)) {
+          fillField(field, country);
+        } else if (/budget|price|cost|estimate/i.test(labelText)) {
+          fillField(field, budget);
+        }
+      }
+    }
+  });
+  fieldMappings.forEach((mapping) => {
+    let filled = false;
+    for (let selector of mapping.selectors) {
+      if (filled) break;
+
+      const fields = formElement.querySelectorAll(selector);
+      if (fields.length > 0) {
+        fields.forEach((field) => {
+          if (isVisibleField(field) && !filled && shouldFillField(field)) {
+            fillField(field, mapping.value);
+            filled = true;
+          }
+        });
+      }
+    }
+  });
+  handleDropdowns(formElement, userData);
+  handleRadioButtons(formElement, userData);
+  handleCheckboxes(formElement);
+}
