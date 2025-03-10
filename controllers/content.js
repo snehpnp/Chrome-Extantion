@@ -588,7 +588,7 @@ function processFormElements(formElement, userData) {
   const fullName = fullname;
   const firstNameValue = firstname;
   const lastNameValue = lastname;
-  console.log("2");
+
 
   const fieldMappings = [
     {
@@ -805,6 +805,8 @@ function processFormElements(formElement, userData) {
     {
       selectors: [
         'input[name="address"]',
+        'input[name="location"]',
+
         'input[id="address"]',
         'input[name*="address1"]',
         'input[id*="address1"]',
@@ -953,17 +955,16 @@ function processFormElements(formElement, userData) {
       type: "skype",
     },
   ];
-  console.log("3");
 
   const labels = formElement.querySelectorAll("label");
   labels.forEach((label) => {
     const labelText = label.textContent.toLowerCase().trim();
     const forAttr = label.getAttribute("for");
-    console.log("forAttr",{ labelText, forAttr });
+   
 
     if (forAttr) {
       const field = formElement.querySelector(`#${forAttr}`);
-      console.log("field", field);
+   
       if (field) {
         if (
           /name|full\s*name/i.test(labelText) &&
@@ -1017,20 +1018,20 @@ function processFormElements(formElement, userData) {
 
   });
   fieldMappings.forEach((mapping) => {
-  console.log("4");
+
 
     let filled = false;
     for (let selector of mapping.selectors) {
       if (filled) break;
-      console.log("5");
+  
 
       const fields = formElement.querySelectorAll(selector);
       if (fields.length > 0) {
-  console.log("6");
+  
 
         fields.forEach((field) => {
           if (isVisibleField(field) && !filled && shouldFillField(field)) {
-  console.log("7");
+ 
 
             fillField(field, mapping.value);
             filled = true;
@@ -1269,13 +1270,11 @@ function findAndFillField(formElement, selectors, value) {
 
 function fillField(field, value) {
   const originalValue = field.value;
-  console.log("Filling field ---", field, "with value", value);
 
   if (field.value.trim() !== "" && field.value.length > 3) {
     return;
   }
 
-console.log("Filling field", field, "with value", value);
 
   field.value = value;
 
