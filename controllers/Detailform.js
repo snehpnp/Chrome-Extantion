@@ -11,15 +11,46 @@ document.addEventListener("DOMContentLoaded", function () {
     form.style.display = "block";
     overlay.style.display = "block";
     if (contactDetails) {
-      document.getElementById("name").value = contactDetails.name ;
+      document.getElementById("firstname").value = contactDetails.firstname;
+      document.getElementById("lastname").value = contactDetails.lastname;
+      document.getElementById("fullname").value = contactDetails.fullname;
+      document.getElementById("username").value = contactDetails.username;
       document.getElementById("email").value = contactDetails.email;
       document.getElementById("phone").value = contactDetails.phone;
+      document.getElementById("subject").value = contactDetails.subject;
+      document.getElementById("company").value = contactDetails.company;
+      document.getElementById("jobtitle").value = contactDetails.jobtitle;
+      document.getElementById("country").value = contactDetails.country;
+      document.getElementById("website").value = contactDetails.website;
+      document.getElementById("skype").value = contactDetails.skype;
+      document.getElementById("zipcode").value = contactDetails.zipcode;
+      document.getElementById("address").value = contactDetails.address;
+      document.getElementById("city").value = contactDetails.city;
+      document.getElementById("whatsapp").value = contactDetails.whatsapp;
+      document.getElementById("industry").value = contactDetails.industry;
       document.getElementById("description").value = contactDetails.description;
-    }else{
-      document.getElementById("name").value = "Demo";
+
+
+    } else {
+      document.getElementById("firstname").value = "Demo";
+      document.getElementById("lastname").value = "User";
+      document.getElementById("fullname").value = "Demo User";
+      document.getElementById("username").value = "DemoUser";
       document.getElementById("email").value = "demo@gmail.com";
       document.getElementById("phone").value = "1233214543";
+      document.getElementById("subject").value = "demo";
+      document.getElementById("company").value = "Demo Company";
+      document.getElementById("jobtitle").value = "Demo Job Title";
+      document.getElementById("country").value = "Demo Country";
+      document.getElementById("website").value = "https://www.demo.com";
+      document.getElementById("skype").value = "Demo Skype";
+      document.getElementById("zipcode").value = "123456";
+      document.getElementById("address").value = "Demo Address";
+      document.getElementById("city").value = "Demo City";
+      document.getElementById("whatsapp").value = "1233214543";
+      document.getElementById("industry").value = "Demo Industry";
       document.getElementById("description").value = "Hello";
+
     }
   }
 
@@ -28,8 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.style.display = "none";
   }
 
-  async function storeFormData(name, email, phone, description) {
-    console.warn('name: ', name, 'email: ', email, 'phone: ', phone, 'description: ', description);
+  async function storeFormData() {
     const result = await chrome.storage.local.get([
       "Morphy_Leads_Finder_local_default",
     ]);
@@ -43,19 +73,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    localStorage.setItem(
-      "formData",
-      JSON.stringify({ name, email, phone, description })
-    );
+    localStorage.setItem("formData", JSON.stringify({ firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description }));
     chrome.storage.local.set(
       {
-        user: { name, email, phone, description },
+        user: { firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description },
         urls: UrlData,
         Domain: UrlData.map((item) => item.website),
-        currentIndex:0
+        currentIndex: 0
       },
       function () {
- 
+
       }
     );
   }
@@ -73,10 +100,29 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
 
       if (!contactDetails) {
-        localStorage.setItem("contactDetails", JSON.stringify({ name: "Demo", email: "demo@gmail.com", phone: "1233214543", description: "Hello" }));
+        localStorage.setItem("contactDetails", JSON.stringify({
+          firstname: "Demo",
+          lastname: "User",
+          fullname: "Demo User",
+          username: "DemoUser",
+          email: "demo@gmail.com",
+          phone: "1233214543",
+          subject: "demo",
+          company: "Demo Company",
+          jobtitle: "Demo Job Title",
+          country: "Demo Country",
+          website: "https://www.demo.com",
+          skype: "Demo Skype",
+          zipcode: "123456",
+          address: "Demo Address",
+          city: "Demo City",
+          whatsapp: "1233214543",
+          industry: "Demo Industry",
+          description: "Hello"
+        }));
         contactDetails = JSON.parse(localStorage.getItem("contactDetails"));
       }
-      storeFormData(contactDetails.name, contactDetails.email, contactDetails.phone, contactDetails.description);
+      storeFormData(contactDetails);
       openNextContactForm();
     });
   }
@@ -84,21 +130,36 @@ document.addEventListener("DOMContentLoaded", function () {
   if (save) {
     save.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const name = document.getElementById("name").value.trim();
+      const firstname = document.getElementById("firstname").value.trim();
+      const lastname = document.getElementById("lastname").value.trim();
+      const fullname = document.getElementById("fullname").value.trim();
+      const username = document.getElementById("username").value.trim();
       const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone")?.value.trim();
-      const description = document.getElementById("description")?.value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const company = document.getElementById("company").value.trim();
+      const jobtitle = document.getElementById("jobtitle").value.trim();
+      const country = document.getElementById("country").value.trim();
+      const website = document.getElementById("website").value.trim();
+      const skype = document.getElementById("skype").value.trim();
+      const zipcode = document.getElementById("zipcode").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const industry = document.getElementById("industry").value.trim();
+      const description = document.getElementById("description").value.trim();
 
-      if (!name || !email || !phone || !description) {
+
+      if (!firstname || !lastname || !fullname || !username || !email || !phone || !subject || !company || !jobtitle || !country || !website || !skype || !zipcode || !address || !city || !whatsapp || !industry || !description) {
         return alert("Please fill in all fields.");
       }
-      localStorage.setItem("contactDetails", JSON.stringify({ name, email, phone, description }));
+      localStorage.setItem("contactDetails", JSON.stringify({ firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description }));
       try {
         const result = await chrome.storage.local.get(["Morphy_Leads_Finder_local_default"]);
         let UrlData = result?.Morphy_Leads_Finder_local_default?.collect || [];
 
         await chrome.storage.local.set({
-          user: { name, email, phone, description },
+          user: { firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description },
           urls: UrlData,
           Domain: UrlData.map(item => item.website),
           currentIndex: 0
