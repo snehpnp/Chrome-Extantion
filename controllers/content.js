@@ -38,14 +38,11 @@ var _$_50b6 = [
   "** Page did not load in time, assuming no next page.",
 ];
 $box[_$_50b6[5]]((_0x1ED43, _0x1ED1D) => {
-
   if (_0x1ED43 == _$_50b6[2]) {
- 
     TaskManager[_$_50b6[4]][_$_50b6[2]]();
   }
 });
 $(document)[_$_50b6[13]](() => {
-  
   $box[_$_50b6[12]]((_0x1ED69) => {
     if (_0x1ED69[_$_50b6[7]]) {
       if (_0x1ED69[_$_50b6[8]]) {
@@ -54,20 +51,18 @@ $(document)[_$_50b6[13]](() => {
       }
       _0x1ED69[_$_50b6[10]] = true;
       $box[_$_50b6[9]](_0x1ED69);
-    
+
       startScraping();
     }
   });
 });
 function startScraping() {
   $box[_$_50b6[12]]((_0x1ED69) => {
- 
     extractResults(() => {
       hasNextPage()[_$_50b6[20]]((_0x1EEBF) => {
         if (_0x1EEBF) {
         } else {
           if (!_0x1EEBF) {
-          
             _0x1ED69[_$_50b6[17]][_$_50b6[16]]();
             $box[_$_50b6[9]](_0x1ED69);
             $box[_$_50b6[19]](_$_50b6[18]);
@@ -82,7 +77,7 @@ function goToNextPage() {
     const _0x1EDDB = getCurrentLci();
     const _0x1EE01 = _0x1EDDB + 20;
     const _0x1EE27 = updateLciInUrl(window[_$_50b6[22]][_$_50b6[21]], _0x1EE01);
- 
+
     window[_$_50b6[22]][_$_50b6[21]] = _0x1EE27;
   });
 }
@@ -101,7 +96,6 @@ function hasNextPage() {
   return new Promise((_0x1EE73) => {
     const _0x1EE4D = document[_$_50b6[31]](_$_50b6[30]);
     if (!_0x1EE4D || _0x1EE4D[_$_50b6[33]][_$_50b6[32]]() !== _$_50b6[34]) {
-    
       _0x1EE73(false);
       return;
     }
@@ -110,9 +104,7 @@ function hasNextPage() {
     const _0x1EE27 = updateLciInUrl(window[_$_50b6[22]][_$_50b6[21]], _0x1EE01);
 
     window[_$_50b6[22]][_$_50b6[21]] = _0x1EE27;
-    const _0x1EE99 = setTimeout(() => {
-  
-    }, 1000);
+    const _0x1EE99 = setTimeout(() => {}, 1000);
   });
 }
 
@@ -185,7 +177,6 @@ async function extractResults(_0x73E9) {
     if (_0x7427) {
       _0x7500[_$_5920[4]](_0x7427);
     } else {
-      
     }
   }
   setTimeout(saveToLocal, 4000, _0x7500, _0x73E9);
@@ -391,7 +382,6 @@ function extractDataFromListing(listing, parentElement, cid) {
 
     return data;
   } catch (error) {
-
     return null;
   }
 }
@@ -432,17 +422,15 @@ function saveToLocal(_0x9E3D, _0x9E17) {
         !_0x9E63[_$_9f2b[7]][_$_9f2b[6]] &&
         _0x9E63[_$_9f2b[9]][_$_9f2b[8]] >= 50
       ) {
-
         _0x9E63[_$_9f2b[12]] = true;
         return;
       }
       _0x9E63[_$_9f2b[9]][_$_9f2b[13]](_0x9E89);
       _0x9E63[_$_9f2b[9]] = _[_$_9f2b[15]](_0x9E63[_$_9f2b[9]], _$_9f2b[14]);
     });
- 
+
     $box[_$_9f2b[19]](_0x9E63, {
       onSet: () => {
-      
         _0x9E17();
       },
     });
@@ -454,28 +442,33 @@ async function checkDomainAccess() {
   let allowedDomains = result?.Domain || [];
 
   const currentDomain = window.location.hostname;
-  const referrerDomain = document.referrer ? new URL(document.referrer).hostname : '';
+  const referrerDomain = document.referrer
+    ? new URL(document.referrer).hostname
+    : "";
 
-
-  let cleanedDomains = allowedDomains.map(url => {
-    try {
-      return new URL(url).hostname;
-    } catch (e) {
-      return url; // In case it's already a domain name
-    }
-  }).filter(Boolean);
-
-
+  let cleanedDomains = allowedDomains
+    .map((url) => {
+      try {
+        return new URL(url).hostname;
+      } catch (e) {
+        return url; // In case it's already a domain name
+      }
+    })
+    .filter(Boolean);
 
   const normalizeDomain = (domain) => domain.replace(/^www\./, "");
 
   const isAllowed =
-    cleanedDomains.some(domain => normalizeDomain(domain) === normalizeDomain(currentDomain)) ||
-    (referrerDomain && cleanedDomains.some(domain => normalizeDomain(domain) === normalizeDomain(referrerDomain)));
+    cleanedDomains.some(
+      (domain) => normalizeDomain(domain) === normalizeDomain(currentDomain)
+    ) ||
+    (referrerDomain &&
+      cleanedDomains.some(
+        (domain) => normalizeDomain(domain) === normalizeDomain(referrerDomain)
+      ));
 
   return { isAllowed };
 }
-
 
 // ADD DANIMIC CODE DO ADDOWNBUTTON ON ALL PAGE TO HIT NEXTCHANGE URL
 async function autoFillForm() {
@@ -485,36 +478,8 @@ async function autoFillForm() {
     return;
   }
   chrome.storage.local.get(["user"], function (result) {
-    const defaultUserData = {
-      name: "John Smith",
-      firstName: "John",
-      lastName: "Smith",
-      email: "contact@example.com",
-      phone: "5551234567",
-      company: "Acme Corporation",
-      jobTitle: "Marketing Manager",
-      website: "www.example.com",
-      address: {
-        street: "123 Main Street",
-        suite: "Suite 101",
-        city: "Anytown",
-        state: "CA",
-        zip: "12345",
-        country: "United States",
-      },
-      subject: "General Inquiry",
-      description:
-        "I'm interested in learning more about your products and services. Please contact me at your earliest convenience.",
-      budget: "$1,000 - $5,000",
-      socialMedia: {
-        linkedin: "linkedin.com/in/johnsmith",
-        twitter: "@johnsmith",
-      },
-    };
-
     // Use user data if available, otherwise use default data
-    const userData = result.user || defaultUserData;
-
+    const userData = result.user;
 
     // Process all frames including iframes
     fillFormsInContext(document, userData);
@@ -526,9 +491,7 @@ async function autoFillForm() {
         if (iframe.contentDocument) {
           fillFormsInContext(iframe.contentDocument, userData);
         }
-      } catch (error) {
-    
-      }
+      } catch (error) {}
     });
 
     // Setup a mutation observer to detect dynamically loaded forms
@@ -544,7 +507,6 @@ function observeDynamicFormChanges(userData) {
           if (node.nodeType === Node.ELEMENT_NODE) {
             // Check if the added node is a form or contains forms
             if (node.tagName === "FORM" || node.querySelector("form")) {
-           
               fillFormsInContext(
                 node.tagName === "FORM" ? node : node.querySelector("form"),
                 userData
@@ -568,9 +530,7 @@ function fillFormsInContext(context, userData) {
 
   // Process direct forms
   if (forms.length > 0) {
-   
     forms.forEach((form, index) => {
-  
       processFormElements(form, userData);
     });
   }
@@ -590,54 +550,38 @@ function fillFormsInContext(context, userData) {
   );
 
   if (possibleFormContainers.length > 0) {
- 
     possibleFormContainers.forEach((container, index) => {
-    
       processFormElements(container, userData);
     });
   }
 
   // If still no forms found, try to find any input fields on the page
   if (forms.length === 0 && possibleFormContainers.length === 0) {
-    
     processFormElements(context, userData);
   }
 }
 
 function processFormElements(formElement, userData) {
   const {
-    name = "",
-    firstName = "",
-    lastName = "",
+    firstname = "",
+    lastname = "",
+    fullname = "",
+    username = "",
     email = "",
     phone = "",
-    company = "",
-    jobTitle = "",
-    website = "",
     subject = "",
-    description = "",
-    address = {},
-    budget = "",
-    socialMedia = {},
-  } = userData;
-
-  const addressObj = typeof address === "string" ? { full: address } : address;
-
-  const {
-    street = "",
-    suite = "",
-    city = "",
-    state = "",
-    zip = "",
+    company = "",
+    jobtitle = "",
     country = "",
-    full = "",
-  } = addressObj;
-
-  const fullName = name || `${firstName} ${lastName}`.trim();
-  const firstNameValue = firstName || (name ? name.split(" ")[0] : "");
-  const lastNameValue =
-    lastName ||
-    (name && name.includes(" ") ? name.split(" ").slice(1).join(" ") : "");
+    website = "",
+    skype = "",
+    zipcode = "",
+    address = "",
+    city = "",
+    whatsapp = "",
+    industry = "",
+    description = "",
+  } = userData;
 
   const fieldMappings = [
     {
@@ -655,7 +599,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="name"]:not([aria-label*="last"])',
         '.hs-input[name*="name"]:not([name*="last"])',
       ],
-      value: fullName,
+      value: fullname,
       type: "name",
     },
     {
@@ -673,7 +617,7 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="first name"]',
         '.hs-input[name*="first"]',
       ],
-      value: firstNameValue,
+      value: firstname,
       type: "firstname",
     },
     {
@@ -693,8 +637,24 @@ function processFormElements(formElement, userData) {
         'input[aria-label*="last name"]',
         '.hs-input[name*="last"]',
       ],
-      value: lastNameValue,
+      value: lastname,
       type: "lastname",
+    },
+    {
+      selectors: [
+        'input[name="username"]',
+        'input[id="username"]',
+        'input[name*="username"]',
+        'input[id*="username"]',
+        'input[placeholder*="username"]',
+        'input[name="your-username"]',
+        'input[name="form_fields[username]"]',
+        'input[data-name*="username"]',
+        'input[aria-label*="username"]',
+        '.hs-input[name*="username"]',
+      ],
+      value: username,
+      type: "username",
     },
     {
       selectors: [
@@ -735,6 +695,9 @@ function processFormElements(formElement, userData) {
         'input[name="form_fields[phone]"]',
         'input[data-name*="phone"]',
         'input[aria-label*="phone"]',
+        'input[name="contact"]',
+        'input[id*="contact"]',
+
         '.hs-input[name*="phone"]',
       ],
       value: phone,
@@ -876,6 +839,11 @@ function processFormElements(formElement, userData) {
       type: "suite",
     },
     {
+      selectors: ['input[name="jobtitle"]', 'input[id="jobtitle"]'],
+      value: jobtitle,
+      type: "jobtitle",
+    },
+    {
       selectors: [
         'input[name="city"]',
         'input[id="city"]',
@@ -948,7 +916,7 @@ function processFormElements(formElement, userData) {
     },
     {
       selectors: [
-        'textarea',
+        "textarea",
         'textarea[name="message"]',
         'textarea[id="message"]',
         'textarea[name*="message"]',
@@ -972,6 +940,84 @@ function processFormElements(formElement, userData) {
       value: description,
       type: "message",
     },
+    {
+      selectors: [
+        'input[name="budget"]',
+        'input[id="budget"]',
+        'input[name*="budget"]',
+        'input[id*="budget"]',
+        'input[name*="price"]',
+        'input[id*="price"]',
+        'input[placeholder*="budget"]',
+        'input[name="your-budget"]',
+        'input[name="form_fields[budget]"]',
+        'input[data-name*="budget"]',
+        'input[aria-label*="budget"]',
+        '.hs-input[name*="budget"]',
+      ],
+      value: budget,
+      type: "budget",
+    },
+    {
+      selectors: [
+        'input[name="address"]',
+        'input[id="address"]',
+        'input[name*="address1"]',
+        'input[id*="address1"]',
+        'input[name*="street"]',
+        'input[id*="street"]',
+        'input[placeholder*="street address"]',
+        'input[name="your-address"]',
+        'input[name="form_fields[address]"]',
+        'input[data-name*="address"]',
+        'input[aria-label*="street address"]',
+        '.hs-input[name*="street"]',
+      ],
+      value: street,
+      type: "street",
+    },
+    {
+      selectors: [
+        'input[name*="address2"]',
+        'input[id*="address2"]',
+        'input[name*="suite"]',
+        'input[id*="suite"]',
+        'input[name*="apt"]',
+        'input[id*="apt"]',
+        'input[placeholder*="suite"]',
+        'input[placeholder*="apartment"]',
+        'input[name="your-address-2"]',
+        'input[name="form_fields[address_2]"]',
+        '.hs-input[name*="address2"]',
+      ],
+      value: suite,
+      type: "suite",
+    },
+    {
+      selectors: ['input[name="skype"]', 'input[id="skype"]'],
+      value: skype,
+      type: "skype",
+    },
+    {
+      selectors: ['input[name="zipcode"]', 'input[id="zipcode"]'],
+      value: zipcode,
+      type: "zipcode",
+    },
+    {
+      selectors: ['input[name="address"]', 'input[id="address"]'],
+      value: address,
+      type: "address",
+    },
+    {
+      selectors: ['input[name="whatsapp"]', 'input[id="whatsapp"]'],
+      value: whatsapp,
+      type: "whatsapp",
+    },
+    {
+      selectors: ['input[name="industry"]', 'input[id="industry"]'],
+      value: industry,
+      type: "industry",
+    },
   ];
 
   const labels = formElement.querySelectorAll("label");
@@ -986,11 +1032,11 @@ function processFormElements(formElement, userData) {
           /name|full\s*name/i.test(labelText) &&
           !/(last|surname)/i.test(labelText)
         ) {
-          fillField(field, fullName);
+          fillField(field, fullname);
         } else if (/first\s*name|nombre|given\s*name/i.test(labelText)) {
-          fillField(field, firstNameValue);
+          fillField(field, firstname);
         } else if (/last\s*name|surname|family\s*name/i.test(labelText)) {
-          fillField(field, lastNameValue);
+          fillField(field, lastname);
         } else if (/e[-\s]?mail|correo/i.test(labelText)) {
           fillField(field, email);
         } else if (
@@ -1160,9 +1206,7 @@ function handleDropdowns(formElement, userData) {
           }
         }
       }
-    } catch (e) {
-   
-    }
+    } catch (e) {}
   });
 }
 
@@ -1256,7 +1300,6 @@ function handleCheckboxes(formElement) {
       }
     }
   });
-
 }
 
 function findAndFillField(formElement, selectors, value) {
@@ -1283,7 +1326,6 @@ function fillField(field, value) {
   const originalValue = field.value;
 
   if (field.value.trim() !== "" && field.value.length > 3) {
-  
     return;
   }
 
@@ -1296,13 +1338,9 @@ function fillField(field, value) {
         value: value,
         writable: true,
       });
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
   triggerEvents(field, ["input", "change", "blur"]);
-
-
 }
 
 function triggerEvents(element, eventTypes) {
@@ -1378,7 +1416,6 @@ async function nextbtnshow() {
   if (!(await checkSessionData())) return;
   const { isAllowed } = await checkDomainAccess();
   if (!isAllowed) {
-   
     return;
   }
 

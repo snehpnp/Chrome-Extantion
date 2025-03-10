@@ -29,8 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("whatsapp").value = contactDetails.whatsapp;
       document.getElementById("industry").value = contactDetails.industry;
       document.getElementById("description").value = contactDetails.description;
-
-
     } else {
       document.getElementById("firstname").value = "Demo";
       document.getElementById("lastname").value = "User";
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("whatsapp").value = "1233214543";
       document.getElementById("industry").value = "Demo Industry";
       document.getElementById("description").value = "Hello";
-
     }
   }
 
@@ -59,31 +56,46 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.style.display = "none";
   }
 
-  async function storeFormData() {
+  async function storeFormData(contactDetails) {
+    console.log("contactDetails", contactDetails);
     const result = await chrome.storage.local.get([
       "Morphy_Leads_Finder_local_default",
     ]);
 
-
-
-
-
     let UrlData = result?.Morphy_Leads_Finder_local_default.collect;
 
+    localStorage.setItem(
+      "formData",
+      JSON.stringify({
+        firstname,
+        lastname,
+        fullname,
+        username,
+        email,
+        phone,
+        subject,
+        company,
+        jobtitle,
+        country,
+        website,
+        skype,
+        zipcode,
+        address,
+        city,
+        whatsapp,
+        industry,
+        description,
+      })
+    );
 
-
-
-    localStorage.setItem("formData", JSON.stringify({ firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description }));
     chrome.storage.local.set(
       {
-        user: { firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description },
+        user: contactDetails,
         urls: UrlData,
         Domain: UrlData.map((item) => item.website),
-        currentIndex: 0
+        currentIndex: 0,
       },
-      function () {
-
-      }
+      function () {}
     );
   }
 
@@ -100,26 +112,29 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
 
       if (!contactDetails) {
-        localStorage.setItem("contactDetails", JSON.stringify({
-          firstname: "Demo",
-          lastname: "User",
-          fullname: "Demo User",
-          username: "DemoUser",
-          email: "demo@gmail.com",
-          phone: "1233214543",
-          subject: "demo",
-          company: "Demo Company",
-          jobtitle: "Demo Job Title",
-          country: "Demo Country",
-          website: "https://www.demo.com",
-          skype: "Demo Skype",
-          zipcode: "123456",
-          address: "Demo Address",
-          city: "Demo City",
-          whatsapp: "1233214543",
-          industry: "Demo Industry",
-          description: "Hello"
-        }));
+        localStorage.setItem(
+          "contactDetails",
+          JSON.stringify({
+            firstname: "Demo",
+            lastname: "User",
+            fullname: "Demo User",
+            username: "DemoUser",
+            email: "demo@gmail.com",
+            phone: "1233214543",
+            subject: "demo",
+            company: "Demo Company",
+            jobtitle: "Demo Job Title",
+            country: "Demo Country",
+            website: "https://www.demo.com",
+            skype: "Demo Skype",
+            zipcode: "123456",
+            address: "Demo Address",
+            city: "Demo City",
+            whatsapp: "1233214543",
+            industry: "Demo Industry",
+            description: "Hello",
+          })
+        );
         contactDetails = JSON.parse(localStorage.getItem("contactDetails"));
       }
       storeFormData(contactDetails);
@@ -149,20 +164,83 @@ document.addEventListener("DOMContentLoaded", function () {
       const industry = document.getElementById("industry").value.trim();
       const description = document.getElementById("description").value.trim();
 
-
-      if (!firstname || !lastname || !fullname || !username || !email || !phone || !subject || !company || !jobtitle || !country || !website || !skype || !zipcode || !address || !city || !whatsapp || !industry || !description) {
+      if (
+        !firstname ||
+        !lastname ||
+        !fullname ||
+        !username ||
+        !email ||
+        !phone ||
+        !subject ||
+        !company ||
+        !jobtitle ||
+        !country ||
+        !website ||
+        !skype ||
+        !zipcode ||
+        !address ||
+        !city ||
+        !whatsapp ||
+        !industry ||
+        !description
+      ) {
         return alert("Please fill in all fields.");
       }
-      localStorage.setItem("contactDetails", JSON.stringify({ firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description }));
+      localStorage.setItem(
+        "contactDetails",
+        JSON.stringify({
+          firstname,
+          lastname,
+          fullname,
+          username,
+          email,
+          phone,
+          subject,
+          company,
+          jobtitle,
+          country,
+          website,
+          skype,
+          zipcode,
+          address,
+          city,
+          whatsapp,
+          industry,
+          description,
+        })
+      );
+
+      console.log("---", {
+        firstname,
+        lastname,
+        fullname,
+        username,
+        email,
+        phone,
+        subject,
+        company,
+        jobtitle,
+        country,
+        website,
+        skype,
+        zipcode,
+        address,
+        city,
+        whatsapp,
+        industry,
+        description,
+      });
+
       try {
-        const result = await chrome.storage.local.get(["Morphy_Leads_Finder_local_default"]);
+        const result = await chrome.storage.local.get([
+          "Morphy_Leads_Finder_local_default",
+        ]);
         let UrlData = result?.Morphy_Leads_Finder_local_default?.collect || [];
 
         await chrome.storage.local.set({
-          user: { firstname, lastname, fullname, username, email, phone, subject, company, jobtitle, country, website, skype, zipcode, address, city, whatsapp, industry, description },
           urls: UrlData,
-          Domain: UrlData.map(item => item.website),
-          currentIndex: 0
+          Domain: UrlData.map((item) => item.website),
+          currentIndex: 0,
         });
 
         hideForm();
@@ -281,11 +359,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
   }
 
-  chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    if (message.action === "openNextUrl") {
-      await openNextContactForm();
+  chrome.runtime.onMessage.addListener(
+    async (message, sender, sendResponse) => {
+      if (message.action === "openNextUrl") {
+        await openNextContactForm();
+      }
     }
-  });
+  );
 
   async function skipUrl(currentIndex) {
     await chrome.storage.local.set({ currentIndex: currentIndex + 1 });
@@ -324,7 +404,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!response.ok) {
           console.log(`Website not reachable: ${website}, skipping...`);
-          showToastNotification(`Website not reachable: ${website}, skipping...`, "error");
+          showToastNotification(
+            `Website not reachable: ${website}, skipping...`,
+            "error"
+          );
           return skipUrl(currentIndex);
         }
       } catch (error) {
@@ -337,7 +420,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const htmlText = await response.text();
       const parser = new DOMParser();
-
 
       const doc = parser.parseFromString(htmlText, "text/html");
 
@@ -356,14 +438,15 @@ document.addEventListener("DOMContentLoaded", function () {
         )
         .map((link) => link.href);
 
-
       if (contactLinks.length) {
         console.log(contactLinks);
         let contactUrl =
-          contactLinks.find((link) => link.includes("contact")) ||
-          website;
+          contactLinks.find((link) => link.includes("contact")) || website;
         if (contactUrl.startsWith("http")) {
-          showToastNotification(`Found contact page for ${website}, opening...`, "info");
+          showToastNotification(
+            `Found contact page for ${website}, opening...`,
+            "info"
+          );
           chrome.tabs.create({ url: contactUrl }, (tab) => {
             chrome.storage.local.set({
               currentTabId: tab.id,
@@ -376,10 +459,11 @@ document.addEventListener("DOMContentLoaded", function () {
           return skipUrl(currentIndex);
         }
       } else {
-
-
         console.log(`No contact links found for ${website}, skipping...`);
-        showToastNotification(`No contact links found for ${website}, skipping...`, "error");
+        showToastNotification(
+          `No contact links found for ${website}, skipping...`,
+          "error"
+        );
         return skipUrl(currentIndex);
       }
     } catch (error) {
